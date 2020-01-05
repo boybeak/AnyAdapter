@@ -1,0 +1,2 @@
+include ':app', ':any-adapter'
+rootProject.name='AnyAdapter'

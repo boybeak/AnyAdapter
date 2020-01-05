@@ -1,0 +1,64 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'org.jetbrains.dokka'
+//apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'maven-publish'
+
+android {
+//    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion 28
+    buildToolsVersion "29.0.0"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.recyclerview:recyclerview:$recycler_view_version"
+
+//    implementation "com.github.boybeak:adapter:$adapter_version"
+//    annotationProcessor "com.github.boybeak:adapter-compiler:$adapter_version"
+
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
+
+//    implementation project(':base')
+
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test:runner:$runner_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = '$buildDir/javadoc'
+}
+
+apply from: 'deploy-adapter.gradle'

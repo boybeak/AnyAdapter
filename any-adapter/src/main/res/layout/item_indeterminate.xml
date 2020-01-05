@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:id="@+id/footerLoadingPart"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:visibility="gone">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <ProgressBar
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateBehavior="repeat"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/footerLoadingMsg"
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:maxLines="1"
+                android:gravity="center"
+                android:textStyle="bold"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </FrameLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/footerMsgPart"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:gravity="center"
+        android:visibility="gone">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/footerMsg"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textStyle="bold"
+            android:gravity="center"
+            />
+        <!--<androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />-->
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</FrameLayout>

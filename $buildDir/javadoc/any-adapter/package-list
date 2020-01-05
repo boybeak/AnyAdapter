@@ -1,0 +1,6 @@
+$dokka.format:html
+$dokka.linkExtension:html
+
+com.github.boybeak.adapter
+com.github.boybeak.adapter.event
+com.github.boybeak.adapter.footer

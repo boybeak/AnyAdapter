@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AbsHolder - any-adapter</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">any-adapter</a>&nbsp;/&nbsp;<a href="../index.html">com.github.boybeak.adapter</a>&nbsp;/&nbsp;<a href="./index.html">AbsHolder</a><br/>
+<br/>
+<h1>AbsHolder</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AbsHolder</span><span class="symbol">&lt;</span><span class="identifier">I</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewHolder</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">AbsHolder</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AbsHolder$<init>(android.view.View)/itemView">itemView</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="context.html">context</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">context</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-attached.html">onAttached</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onAttached</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AbsHolder$onAttached(androidx.recyclerview.widget.RecyclerView)/recyclerView">recyclerView</span><span class="symbol">:</span>&nbsp;<span class="identifier">RecyclerView</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-bind.html">onBind</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onBind</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AbsHolder$onBind(com.github.boybeak.adapter.AbsHolder.I, kotlin.Int, com.github.boybeak.adapter.AnyAdapter)/item">item</span><span class="symbol">:</span>&nbsp;<span class="identifier">I</span><span class="symbol">, </span><span class="identifier" id="com.github.boybeak.adapter.AbsHolder$onBind(com.github.boybeak.adapter.AbsHolder.I, kotlin.Int, com.github.boybeak.adapter.AnyAdapter)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.github.boybeak.adapter.AbsHolder$onBind(com.github.boybeak.adapter.AbsHolder.I, kotlin.Int, com.github.boybeak.adapter.AnyAdapter)/absAdapter">absAdapter</span><span class="symbol">:</span>&nbsp;<a href="../-any-adapter/index.html"><span class="identifier">AnyAdapter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-detached.html">onDetached</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onDetached</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AbsHolder$onDetached(androidx.recyclerview.widget.RecyclerView)/recyclerView">recyclerView</span><span class="symbol">:</span>&nbsp;<span class="identifier">RecyclerView</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="view.html">view</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">view</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AbsHolder$view(kotlin.Int)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../../com.github.boybeak.adapter.footer/-footer-holder/index.html">FooterHolder</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">FooterHolder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AbsHolder</span></a><span class="symbol">&lt;</span><a href="../../com.github.boybeak.adapter.footer/-footer-item/index.html"><span class="identifier">FooterItem</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../com.github.boybeak.adapter.footer/-indeterminate-holder/index.html">IndeterminateHolder</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">IndeterminateHolder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AbsHolder</span></a><span class="symbol">&lt;</span><a href="../../com.github.boybeak.adapter.footer/-indeterminate-item/index.html"><span class="identifier">IndeterminateItem</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
