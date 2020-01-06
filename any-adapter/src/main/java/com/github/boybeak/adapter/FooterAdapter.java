@@ -6,42 +6,28 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.github.boybeak.adapter.footer.Footer;
-import com.github.boybeak.adapter.footer.FooterItem;
 
-import art.musemore.adapter.R;
+import org.jetbrains.annotations.NotNull;
 
 public class FooterAdapter extends AnyAdapter {
 
     private Footer footer = null;
-    private AbsItem<Footer> footerItem;
+    private ItemImpl<Footer> footerItem;
 
     private View.OnClickListener footerClick;
 
-    public FooterAdapter() {
-        super();
-        footer = new Footer();
-        init(new FooterItem(footer));
-    }
-
-    public FooterAdapter(NotifyCallback callback) {
+    public FooterAdapter(@NotNull AbsItem<Footer> item, @NotNull NotifyCallback callback) {
         super(callback);
-        footer = new Footer();
-        init(new FooterItem(footer));
-    }
-
-    public FooterAdapter(AbsItem<Footer> item, NotifyCallback callback) {
-        super(callback);
-        footer = item.source();
         init(item);
     }
 
-    public FooterAdapter(AbsItem<Footer> item) {
+    public FooterAdapter(@NotNull AbsItem<Footer> item) {
         super();
-        footer = item.source();
         init(item);
     }
 
     private void init(AbsItem<Footer> footerItem) {
+        footer = footerItem.source();
         this.footerItem = footerItem;
         putType(footerItem.layoutId(), footerItem.holderClass());
     }
@@ -94,7 +80,7 @@ public class FooterAdapter extends AnyAdapter {
         notifyItemChanged(getItemCount() - 1);
     }
 
-    public void replaceFooterItem(FooterItem newFooterItem) {
+    public void replaceFooterItem(ItemImpl<Footer> newFooterItem) {
         newFooterItem.source().setState(footer.getState());
         footer = newFooterItem.source();
         footerItem = newFooterItem;
