@@ -1,20 +1,18 @@
 package com.github.boybeak.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
-import android.view.ViewParent;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 public abstract class AbsHolder<I extends ItemImpl> extends RecyclerView.ViewHolder {
 
     private SparseArray<View> viewSA = new SparseArray<>();
-
-
 
     public AbsHolder(@NonNull View itemView) {
         super(itemView);
@@ -24,6 +22,18 @@ public abstract class AbsHolder<I extends ItemImpl> extends RecyclerView.ViewHol
     }
 
     public void onDetached(@NonNull RecyclerView recyclerView) {
+    }
+
+    public void onSelectionBegin() {
+
+    }
+
+    public void onSelectionEnd() {
+
+    }
+
+    public void onSelectedUpdate(@NonNull I item, @NotNull Boolean isSelected, @NonNull AnyAdapter adapter) {
+
     }
 
     public abstract void onBind(@NonNull I item, int position, @NonNull AnyAdapter absAdapter);

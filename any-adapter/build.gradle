@@ -59,6 +59,17 @@ dependencies {
 dokka {
     outputFormat = 'html'
     outputDirectory = '$buildDir/javadoc'
+
+    configuration {
+        externalDocumentationLink {
+            noJdkLink = true
+            noStdlibLink = true
+            noAndroidSdkLink = true
+
+            url = new URL("https://whatever")
+            packageListUrl = new URL("file:///${rootDir}/package-list")
+        }
+    }
 }
 
 apply from: 'deploy-adapter.gradle'

@@ -9,4 +9,13 @@ public interface ItemImpl<T> {
     @NotNull
     Class<? extends AbsHolder> holderClass();
     boolean areContentsSame(@NotNull ItemImpl other);
+
+    boolean supportSelect();
+
+    boolean isSelectable();
+    void setSelectable(boolean isSupportSelect);
+
+    boolean isSelected();
+    void setSelected(boolean isSelected);
+
 }

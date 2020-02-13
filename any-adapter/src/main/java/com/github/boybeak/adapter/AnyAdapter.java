@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.*;
 
 import com.github.boybeak.adapter.event.OnClick;
 import com.github.boybeak.adapter.event.OnLongClick;
+import com.github.boybeak.adapter.selection.MultipleSelection;
+import com.github.boybeak.adapter.selection.SelectionArgs;
+import com.github.boybeak.adapter.selection.SingleSelection;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -29,6 +32,8 @@ import java.util.concurrent.TimeUnit;
 
 public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
 
+    private static final String TAG = AnyAdapter.class.getSimpleName();
+
     private SparseArray<Class<? extends AbsHolder>> typeMap = new SparseArray<>();
 
     private List<ItemImpl> oldItems = null;
@@ -36,6 +41,8 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
 
     private Map<Class<? extends ItemImpl>, OnClick> clickMap = new HashMap<>();
     private Map<Class<? extends ItemImpl>, OnLongClick> longClickMap = new HashMap<>();
+    private Map<Class<? extends ItemImpl>, SingleSelection> singleSelectionMap = new HashMap<>();
+    private Map<Class<? extends ItemImpl>, MultipleSelection> multipleSelectionMap = new HashMap<>();
 
     private DiffUtil.Callback diffCallback = new DiffUtil.Callback() {
         @Override
@@ -96,6 +103,14 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
     public void onBindViewHolder(@NonNull AbsHolder holder, final int position) {
         final ItemImpl item = getItem(position);
         holder.onBind(item, position, this);
+        if (item.supportSelect()) {
+            if (item.isSelectable()) {
+                holder.onSelectionBegin();
+            } else {
+                holder.onSelectionEnd();
+            }
+            holder.onSelectedUpdate(item, item.isSelected(), this);
+        }
         final OnClick click = clickMap.get(item.getClass());
         if (click != null) {
             int[] ids = click.getClickableIds();
@@ -139,6 +154,40 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
     }
 
     @Override
+    public void onBindViewHolder(@NonNull AbsHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads);
+        } else {
+
+            for (Object o : payloads) {
+                if (o instanceof SelectionArgs) {
+                    ItemImpl item = getItem(position);
+                    if (!item.supportSelect()) {
+                        continue;
+                    }
+                    SelectionArgs args = (SelectionArgs)o;
+                    if (!args.getClz().isInstance(item)) {
+                        continue;
+                    }
+                    switch (args.action()) {
+                        case SelectionArgs.ACTION_STATE_CHANGE:
+                            holder.onSelectedUpdate(item, args.value(), this);
+                            break;
+                        case SelectionArgs.ACTION_MODE_CHANGE:
+                            if (args.value()) {
+                                holder.onSelectionBegin();
+                            } else {
+                                holder.onSelectionEnd();
+                            }
+                            break;
+
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
     public void onViewAttachedToWindow(@NonNull AbsHolder holder) {
         ViewParent vp = holder.itemView.getParent();
         holder.onAttached((RecyclerView)vp);
@@ -172,8 +221,59 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return currentItems.size();
     }
 
+    public int countOf(Class<? extends ItemImpl> clz) {
+        final int size = currentItems.size();
+        int sizeOfClz = 0;
+        for (int i = 0; i < size; i++) {
+            if (clz.isInstance(currentItems.get(i))) {
+                sizeOfClz++;
+            }
+        }
+        return sizeOfClz;
+    }
+
     public ItemImpl getItem(int position) {
         return currentItems.get(position);
+    }
+
+    public int indexOf(ItemImpl item) {
+        return currentItems.indexOf(item);
+    }
+
+    public int firstIndexOf(Class<? extends ItemImpl> clz) {
+        final int size = currentItems.size();
+        for (int i = 0; i < size; i++) {
+            if (clz.isInstance(currentItems.get(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int lastIndexOf(Class<? extends ItemImpl> clz) {
+        final int size = currentItems.size();
+        for (int i = size - 1; i >= 0; i--) {
+            if (clz.isInstance(currentItems.get(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public <T extends ItemImpl> boolean contains(T t) {
+        return currentItems.contains(t);
+    }
+
+    public <T extends ItemImpl> List<T> getItemsAs(Class<T> clz) {
+        final int size = currentItems.size();
+        List<T> ts = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            ItemImpl item = currentItems.get(i);
+            if (clz.isInstance(item)) {
+                ts.add((T)item);
+            }
+        }
+        return ts;
     }
 
     public <T extends ItemImpl> T getItemAs(int position) {
@@ -417,6 +517,28 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
 
     public void onAfterChanged(int oldSize, int newSize) {
 
+    }
+
+    public <T extends ItemImpl> SingleSelection<T> singleSelectionFor(Class<T> clz) {
+        SingleSelection ss;
+        if (singleSelectionMap.containsKey(clz)) {
+            ss = singleSelectionMap.get(clz);
+        } else {
+            ss = new SingleSelection<>(this, clz);
+            singleSelectionMap.put(clz, ss);
+        }
+        return ss;
+    }
+
+    public <T extends ItemImpl> MultipleSelection<T> multipleSelectionFor(Class<T> clz) {
+        MultipleSelection ms;
+        if (multipleSelectionMap.containsKey(clz)) {
+            ms = multipleSelectionMap.get(clz);
+        } else {
+            ms = new MultipleSelection<>(this, clz);
+            multipleSelectionMap.put(clz, ms);
+        }
+        return ms;
     }
 
     private interface Callback {

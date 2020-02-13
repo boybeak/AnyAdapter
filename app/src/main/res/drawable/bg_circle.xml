@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <stroke
+                android:width="2dp"
+                android:color="@color/colorAccent"
+                android:dashWidth="2dp"
+                />
+        </shape>
+    </item>
+    <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp">
+        <selector>
+            <item android:state_selected="true">
+                <shape android:shape="oval">
+                    <solid android:color="@color/colorAccent"/>
+                </shape>
+            </item>
+            <item>
+                <color android:color="@android:color/transparent"/>
+            </item>
+        </selector>
+    </item>
+</layer-list>

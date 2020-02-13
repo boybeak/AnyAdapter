@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:gravity="center_vertical">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/songDir"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_weight="1"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/songCheck"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/bg_circle"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:clickable="false"
+        android:textColor="@android:color/white"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
