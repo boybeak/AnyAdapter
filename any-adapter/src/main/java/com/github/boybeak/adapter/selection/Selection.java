@@ -17,4 +17,6 @@ public interface Selection<T extends ItemImpl> {
     boolean select(T t);
     boolean select(int index);
     boolean isSelected(T t);
+
+    int remove();
 }

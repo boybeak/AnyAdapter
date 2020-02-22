@@ -3,6 +3,8 @@ package com.github.boybeak.main
 import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -28,9 +30,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onBegin() {
+            deleteBtn.isVisible = true
         }
 
         override fun onEnd() {
+            deleteBtn.isVisible = false
         }
 
         override fun onReset() {
@@ -60,6 +64,8 @@ class MainActivity : AppCompatActivity() {
         setOnLongClickFor(SongItem::class.java, longClick)
     }
 
+    private lateinit var deleteBtn: MenuItem
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -78,6 +84,27 @@ class MainActivity : AppCompatActivity() {
                 ) {
                 }
             })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        deleteBtn = menu.findItem(R.id.delete)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.delete -> {
+                adapter.multipleSelectionFor(SongItem::class.java).run {
+                    remove()
+                    end()
+                }
+                true
+            }
+            else -> {
+                false
+            }
+        }
     }
 
     override fun onBackPressed() {

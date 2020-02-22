@@ -187,4 +187,14 @@ public class MultipleSelection<T extends ItemImpl> extends AbsSelection<T> {
         return selectedItems.indexOf(t);
     }
 
+    @Override
+    public int remove() {
+        if (selectedItems.isEmpty()) {
+            return 0;
+        }
+        final int size = selectedItems.size();
+        adapter().removeAll(selectedItems);
+        selectedItems.clear();
+        return size;
+    }
 }

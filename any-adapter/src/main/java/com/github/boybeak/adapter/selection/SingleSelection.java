@@ -75,4 +75,13 @@ public class SingleSelection<T extends ItemImpl> extends AbsSelection<T> {
         return lastT;
     }
 
+    @Override
+    public int remove() {
+        if (lastT != null) {
+            adapter().remove(lastT);
+            lastT = null;
+            return 1;
+        }
+        return 0;
+    }
 }

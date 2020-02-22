@@ -288,18 +288,18 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         longClickMap.put(clz, click);
     }
 
-    public void add(int position, ItemImpl item) {
+    public <T extends ItemImpl> void add(int position, T item) {
         add(position, item, null);
     }
-    public void add(final int position, final ItemImpl item, FinishCallback finish) {
+    public <T extends ItemImpl> void add(final int position, final T item, FinishCallback finish) {
         add(false, 0, position, item, finish);
     }
 
-    public void addAsync(long delayMS, final int position, final ItemImpl item, FinishCallback finish) {
+    public <T extends ItemImpl> void addAsync(long delayMS, final int position, final T item, FinishCallback finish) {
         add(true, delayMS, position, item, finish);
     }
 
-    public void add(boolean async, long delay, final int position, final ItemImpl item, FinishCallback finish) {
+    public <T extends ItemImpl> void add(boolean async, long delay, final int position, final T item, FinishCallback finish) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
@@ -313,16 +313,16 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         }
     }
 
-    public void add(ItemImpl item) {
+    public <T extends ItemImpl> void add(T item) {
         add(item, null);
     }
-    public void add(final ItemImpl item, FinishCallback finish) {
+    public <T extends ItemImpl> void add(final T item, FinishCallback finish) {
         add(false, 0, item, finish);
     }
-    public void addAsync(long delayMS, final ItemImpl item, FinishCallback finish) {
+    public <T extends ItemImpl> void addAsync(long delayMS, final T item, FinishCallback finish) {
         add(true, delayMS, item, finish);
     }
-    public void add(boolean async, long delayMS, final ItemImpl item, FinishCallback finish) {
+    public <T extends ItemImpl> void add(boolean async, long delayMS, final T item, FinishCallback finish) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
@@ -336,16 +336,16 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         }
     }
 
-    public void addAll(Collection<ItemImpl> items) {
+    public <T extends ItemImpl> void addAll(Collection<T> items) {
         addAll(items, null);
     }
-    public void addAll(final Collection<ItemImpl> items, FinishCallback finish) {
+    public <T extends ItemImpl> void addAll(final Collection<T> items, FinishCallback finish) {
         addAll(false, 0, items, finish);
     }
-    public void addAllAsync(long delayMS, final Collection<ItemImpl> items, FinishCallback finish) {
+    public <T extends ItemImpl> void addAllAsync(long delayMS, final Collection<T> items, FinishCallback finish) {
         addAll(true, delayMS, items, finish);
     }
-    public void addAll(boolean async, long delayMS, final Collection<ItemImpl> items, FinishCallback finish) {
+    public <T extends ItemImpl> void addAll(boolean async, long delayMS, final Collection<T> items, FinishCallback finish) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
@@ -359,15 +359,15 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         }
     }
 
-    public void remove(final ItemImpl item) {
+    public <T extends ItemImpl> void remove(final T item) {
         remove(item, null);
     }
 
-    public void remove(final ItemImpl item, FinishCallback finish) {
+    public <T extends ItemImpl> void remove(final T item, FinishCallback finish) {
         remove(item, false, finish);
     }
 
-    public void remove(final ItemImpl item, boolean async, FinishCallback finish) {
+    public <T extends ItemImpl> void remove(final T item, boolean async, FinishCallback finish) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
@@ -394,6 +394,28 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
             @Override
             public void doChange() {
                 currentItems.remove(position);
+            }
+        };
+        if (async) {
+            asyncNotify(0, callback, finish);
+        } else {
+            syncNotify(callback, finish);
+        }
+    }
+
+    public <T extends ItemImpl> void removeAll(final Collection<T> items) {
+        removeAll(items, null);
+    }
+
+    public <T extends ItemImpl> void removeAll(final Collection<T> items, FinishCallback finish) {
+        removeAll(items, false, finish);
+    }
+
+    public <T extends ItemImpl> void removeAll(final Collection<T> items, boolean async, FinishCallback finish) {
+        Callback callback = new Callback() {
+            @Override
+            public void doChange() {
+                currentItems.removeAll(items);
             }
         };
         if (async) {
