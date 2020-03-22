@@ -16,19 +16,12 @@ import com.github.boybeak.adapter.selection.SingleSelection;
 
 import org.jetbrains.annotations.NotNull;
 
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
 
@@ -288,171 +281,115 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         longClickMap.put(clz, click);
     }
 
-    public <T extends ItemImpl> void add(int position, T item) {
-        add(position, item, null);
-    }
-    public <T extends ItemImpl> void add(final int position, final T item, FinishCallback finish) {
-        add(false, 0, position, item, finish);
-    }
-
-    public <T extends ItemImpl> void addAsync(long delayMS, final int position, final T item, FinishCallback finish) {
-        add(true, delayMS, position, item, finish);
-    }
-
-    public <T extends ItemImpl> void add(boolean async, long delay, final int position, final T item, FinishCallback finish) {
+    public <T extends ItemImpl> void add(final int position, final T item) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
                 currentItems.add(position, item);
             }
         };
-        if (async) {
-            asyncNotify(delay, callback, finish);
-        } else {
-            syncNotify(callback, finish);
-        }
+        syncNotify(callback);
     }
 
-    public <T extends ItemImpl> void add(T item) {
-        add(item, null);
-    }
-    public <T extends ItemImpl> void add(final T item, FinishCallback finish) {
-        add(false, 0, item, finish);
-    }
-    public <T extends ItemImpl> void addAsync(long delayMS, final T item, FinishCallback finish) {
-        add(true, delayMS, item, finish);
-    }
-    public <T extends ItemImpl> void add(boolean async, long delayMS, final T item, FinishCallback finish) {
+    public <T extends ItemImpl> void add(final T item) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
                 currentItems.add(item);
             }
         };
-        if (async) {
-            asyncNotify(delayMS, callback, finish);
-        } else {
-            syncNotify(callback, finish);
-        }
+        syncNotify(callback);
     }
 
-    public <T extends ItemImpl> void addAll(Collection<T> items) {
-        addAll(items, null);
-    }
-    public <T extends ItemImpl> void addAll(final Collection<T> items, FinishCallback finish) {
-        addAll(false, 0, items, finish);
-    }
-    public <T extends ItemImpl> void addAllAsync(long delayMS, final Collection<T> items, FinishCallback finish) {
-        addAll(true, delayMS, items, finish);
-    }
-    public <T extends ItemImpl> void addAll(boolean async, long delayMS, final Collection<T> items, FinishCallback finish) {
+    public <T extends ItemImpl> void addAll(final Collection<T> items) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
                 currentItems.addAll(items);
             }
         };
-        if (async) {
-            asyncNotify(delayMS, callback, finish);
-        } else {
-            syncNotify(callback, finish);
+        syncNotify(callback);
+    }
+
+    public <T extends ItemImpl> void addAll(final int position, final Collection<T> items) {
+        Callback callback = new Callback() {
+            @Override
+            public void doChange() {
+                currentItems.addAll(position, items);
+            }
+        };
+        syncNotify(callback);
+    }
+
+    private <S, T extends ItemImpl<S>> List<T> doConvert(List<S> sources, IConverter<S, T> converter) {
+        List<T> items = new ArrayList<>(sources.size());
+        for (int i = 0; i < sources.size(); i++) {
+            S s = sources.get(i);
+            items.add(converter.convert(s, i));
         }
+        return items;
+    }
+
+    public <S, T extends ItemImpl<S>> void addAll(int position, List<S> sources, IConverter<S, T> converter) {
+        addAll(position, doConvert(sources, converter));
+    }
+
+    public <S, T extends ItemImpl<S>> void addAll(List<S> sources, IConverter<S, T> converter) {
+        addAll(doConvert(sources, converter));
     }
 
     public <T extends ItemImpl> void remove(final T item) {
-        remove(item, null);
-    }
-
-    public <T extends ItemImpl> void remove(final T item, FinishCallback finish) {
-        remove(item, false, finish);
-    }
-
-    public <T extends ItemImpl> void remove(final T item, boolean async, FinishCallback finish) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
                 currentItems.remove(item);
             }
         };
-        if (async) {
-            asyncNotify(0, callback, finish);
-        } else {
-            syncNotify(callback, finish);
-        }
+        syncNotify(callback);
     }
 
     public void remove(final int position) {
-        remove(position, null);
-    }
-
-    public void remove(final int position, FinishCallback finish) {
-        remove(position, false, finish);
-    }
-
-    public void remove(final int position, boolean async, FinishCallback finish) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
                 currentItems.remove(position);
             }
         };
-        if (async) {
-            asyncNotify(0, callback, finish);
-        } else {
-            syncNotify(callback, finish);
-        }
+        syncNotify(callback);
     }
 
     public <T extends ItemImpl> void removeAll(final Collection<T> items) {
-        removeAll(items, null);
-    }
-
-    public <T extends ItemImpl> void removeAll(final Collection<T> items, FinishCallback finish) {
-        removeAll(items, false, finish);
-    }
-
-    public <T extends ItemImpl> void removeAll(final Collection<T> items, boolean async, FinishCallback finish) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
                 currentItems.removeAll(items);
             }
         };
-        if (async) {
-            asyncNotify(0, callback, finish);
-        } else {
-            syncNotify(callback, finish);
+        syncNotify(callback);
+    }
+
+    public void removeBy(@NonNull IFilter<ItemImpl> filter) {
+        List<ItemImpl> removeList = new ArrayList<>();
+        for (int i = 0; i < getItemCount(); i++) {
+            ItemImpl item = getItem(i);
+            if (filter.accept(item, i)) {
+                removeList.add(item);
+            }
         }
+        removeAll(removeList);
     }
 
     public void clear() {
-        clear(false, null);
-    }
-
-    public void clear(boolean async) {
-        clear(async, null);
-    }
-
-    public void clear(FinishCallback finish) {
-        clear(false, finish);
-    }
-
-    public void clear(boolean async, FinishCallback finish) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
                 currentItems.clear();
             }
         };
-        if (async) {
-            asyncNotify(0, callback, finish);
-        } else {
-            syncNotify(callback, finish);
-        }
-
+        syncNotify(callback);
     }
 
-    public void filterRun(IFilter filter, IRun run) {
+    public void filterRun(@NonNull IFilter filter, @NonNull IRun run) {
         for (int i = 0; i < getItemCount(); i++) {
             ItemImpl item = getItem(i);
             if (filter.accept(item, i)) {
@@ -463,7 +400,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         }
     }
 
-    public <T extends ItemImpl> void filterRun(Class<T> clz, IFilter<T> filter, IRun<T> run) {
+    public <T extends ItemImpl> void filterRun(@NonNull Class<T> clz, @NonNull IFilter<T> filter, @NonNull IRun<T> run) {
         for (int i = 0; i < getItemCount(); i++) {
             ItemImpl item = getItem(i);
             if (!clz.isInstance(item)) {
@@ -478,7 +415,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         }
     }
 
-    private void syncNotify(final Callback change, final FinishCallback finish) {
+    private void syncNotify(final Callback change) {
         if (notifyCallback != null) {
             notifyCallback.onNotifyStart();
         }
@@ -492,12 +429,9 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         if (notifyCallback != null) {
             notifyCallback.onNotifyEnd();
         }
-        if (finish != null) {
-            finish.onFinish();
-        }
     }
 
-    private synchronized  void asyncNotify(long delayMS, final Callback change, final FinishCallback finish) {
+    /*private synchronized  void asyncNotify(long delayMS, final Callback change, final FinishCallback finish) {
         if (notifyCallback != null) {
             notifyCallback.onNotifyStart();
         }
@@ -535,7 +469,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
                     }
                 })
                 .subscribe();
-    }
+    }*/
 
     public void onAfterChanged(int oldSize, int newSize) {
 
@@ -572,10 +506,6 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         void onNotifyEnd();
     }
 
-    public interface FinishCallback {
-        void onFinish();
-    }
-
     private class Change {
 
         public int oldSize, newSize;
@@ -586,6 +516,10 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
             this.newSize = newSize;
             this.diffResult = diffResult;
         }
+    }
+
+    public interface IConverter<S, I extends ItemImpl<S>> {
+        I convert(S s, int position);
     }
 
     public interface IFilter<T extends ItemImpl> {

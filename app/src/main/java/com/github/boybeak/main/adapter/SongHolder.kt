@@ -1,8 +1,6 @@
 package com.github.boybeak.main.adapter
-
 import android.util.Log
 import android.view.View
-import android.widget.RadioButton
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import com.github.boybeak.adapter.AbsHolder
@@ -10,7 +8,6 @@ import com.github.boybeak.adapter.AnyAdapter
 import com.github.boybeak.main.R
 
 class SongHolder(v: View) : AbsHolder<SongItem>(v) {
-
     companion object {
         private val TAG = SongHolder::class.java.simpleName
     }

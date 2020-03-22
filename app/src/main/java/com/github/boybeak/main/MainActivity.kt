@@ -16,6 +16,7 @@ import com.github.boybeak.adapter.selection.SingleSelection
 import com.github.boybeak.easypermission.Callback
 import com.github.boybeak.easypermission.EasyPermission
 import com.github.boybeak.main.adapter.SongItem
+import com.github.boybeak.main.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
 
         recyclerView.adapter = adapter
