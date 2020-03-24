@@ -379,6 +379,27 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         removeAll(removeList);
     }
 
+    public <T extends ItemImpl> void removeBy(@NonNull Class<T> clz,
+                                              @NonNull IFilter<T> filter) {
+        List<ItemImpl> removeList = new ArrayList<>();
+        for (int i = 0; i < getItemCount(); i++) {
+            ItemImpl item = getItem(i);
+            if (clz.isInstance(item) && filter.accept((T) item, i)) {
+                removeList.add(item);
+            }
+        }
+        removeAll(removeList);
+    }
+
+    public <T extends ItemImpl> void removeAll(@NonNull Class<T> clz) {
+        removeBy(clz, new IFilter<T>() {
+            @Override
+            public boolean accept(@NotNull T t, int position) {
+                return true;
+            }
+        });
+    }
+
     public void clear() {
         Callback callback = new Callback() {
             @Override
