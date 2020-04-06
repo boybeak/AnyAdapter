@@ -281,10 +281,30 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         longClickMap.put(clz, click);
     }
 
+    private <T extends ItemImpl> boolean isSelectableFor(Class<T> clz) {
+        SingleSelection ss = singleSelectionMap.get(clz);
+        if (ss != null) {
+            return ss.isInSelectMode();
+        }
+        MultipleSelection ms = multipleSelectionMap.get(clz);
+        if (ms != null) {
+            return ms.isInSelectMode();
+        }
+        return false;
+    }
+
+    private <T extends ItemImpl> void handleAddOperation(T item) {
+        if (!item.supportSelect()) {
+            return;
+        }
+        item.setSelectable(isSelectableFor(item.getClass()));
+    }
+
     public <T extends ItemImpl> void add(final int position, final T item) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
+                handleAddOperation(item);
                 currentItems.add(position, item);
             }
         };
@@ -295,7 +315,19 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
+                handleAddOperation(item);
                 currentItems.add(item);
+            }
+        };
+        syncNotify(callback);
+    }
+
+    public <T extends ItemImpl> void replace(final int position, final T item) {
+        Callback callback = new Callback() {
+            @Override
+            public void doChange() {
+                handleAddOperation(item);
+                currentItems.set(position, item);
             }
         };
         syncNotify(callback);
@@ -305,6 +337,9 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
+                for (T t : items) {
+                    handleAddOperation(t);
+                }
                 currentItems.addAll(items);
             }
         };
@@ -315,6 +350,9 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
+                for (T t : items) {
+                    handleAddOperation(t);
+                }
                 currentItems.addAll(position, items);
             }
         };
@@ -325,7 +363,9 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         List<T> items = new ArrayList<>(sources.size());
         for (int i = 0; i < sources.size(); i++) {
             S s = sources.get(i);
-            items.add(converter.convert(s, i));
+            T t = converter.convert(s, i);
+            handleAddOperation(t);
+            items.add(t);
         }
         return items;
     }
@@ -338,10 +378,30 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         addAll(doConvert(sources, converter));
     }
 
+    private <T extends ItemImpl> void handleRemoveOperation(T t) {
+        if (!t.supportSelect()) {
+            return;
+        }
+        SingleSelection ss = singleSelectionMap.get(t.getClass());
+        if (ss != null) {
+            if (t.equals(ss.getSelectedItem())) {
+                ss.select(t);
+            }
+            return;
+        }
+        MultipleSelection ms = multipleSelectionMap.get(t.getClass());
+        if (ms != null) {
+            if (ms.isSelected(t)) {
+                ms.select(t);
+            }
+        }
+    }
+
     public <T extends ItemImpl> void remove(final T item) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
+                handleRemoveOperation(item);
                 currentItems.remove(item);
             }
         };
@@ -352,6 +412,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
+                handleRemoveOperation(getItem(position));
                 currentItems.remove(position);
             }
         };
@@ -362,6 +423,9 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
+                for (T t : items) {
+                    handleAddOperation(t);
+                }
                 currentItems.removeAll(items);
             }
         };
@@ -372,6 +436,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         List<ItemImpl> removeList = new ArrayList<>();
         for (int i = 0; i < getItemCount(); i++) {
             ItemImpl item = getItem(i);
+            handleAddOperation(item);
             if (filter.accept(item, i)) {
                 removeList.add(item);
             }
@@ -384,6 +449,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         List<ItemImpl> removeList = new ArrayList<>();
         for (int i = 0; i < getItemCount(); i++) {
             ItemImpl item = getItem(i);
+            handleAddOperation(item);
             if (clz.isInstance(item) && filter.accept((T) item, i)) {
                 removeList.add(item);
             }
@@ -391,7 +457,19 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         removeAll(removeList);
     }
 
+    /*private <T extends ItemImpl> void handleRemoveOperation(@NonNull Class<T> clz) {
+        SingleSelection ss = singleSelectionMap.get(clz);
+        if (ss != null) {
+            ss.reset();
+            return;
+        }
+        MultipleSelection ms = multipleSelectionMap.get(clz);
+        if (ms != null) {
+            ms.reset();
+        }
+    }*/
     public <T extends ItemImpl> void removeAll(@NonNull Class<T> clz) {
+
         removeBy(clz, new IFilter<T>() {
             @Override
             public boolean accept(@NotNull T t, int position) {
@@ -404,6 +482,12 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
+                for (SingleSelection ss : singleSelectionMap.values()) {
+                    ss.reset();
+                }
+                for (MultipleSelection ms : multipleSelectionMap.values()) {
+                    ms.reset();
+                }
                 currentItems.clear();
             }
         };
@@ -504,6 +588,8 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
             ss = new SingleSelection<>(this, clz);
             singleSelectionMap.put(clz, ss);
         }
+        //Remove multipleSelection, can only have one selection for one type data
+        multipleSelectionMap.remove(clz);
         return ss;
     }
 
@@ -515,6 +601,8 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
             ms = new MultipleSelection<>(this, clz);
             multipleSelectionMap.put(clz, ms);
         }
+        //Remove singleSelection, can only have one selection for one type data
+        singleSelectionMap.remove(clz);
         return ms;
     }
 
