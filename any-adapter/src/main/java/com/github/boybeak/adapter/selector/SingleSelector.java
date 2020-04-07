@@ -1,25 +1,20 @@
-package com.github.boybeak.adapter.selection;
+package com.github.boybeak.adapter.selector;
 
 import com.github.boybeak.adapter.AnyAdapter;
 import com.github.boybeak.adapter.ItemImpl;
 
-import org.jetbrains.annotations.NotNull;
+public class SingleSelector<T extends ItemImpl> extends AbsSelector<T> {
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class SingleSelection<T extends ItemImpl> extends AbsSelection<T> {
-
-    private static final String TAG = SingleSelection.class.getSimpleName();
+    private static final String TAG = SingleSelector.class.getSimpleName();
 
     private T lastT = null;
 
-    public SingleSelection(AnyAdapter adapter, Class<T> tClass) {
+    public SingleSelector(AnyAdapter adapter, Class<T> tClass) {
         super(adapter, tClass);
     }
 
     @Override
-    final public SingleSelection<T> begin() {
+    final public SingleSelector<T> begin() {
         super.begin();
         return this;
     }
@@ -38,16 +33,16 @@ public class SingleSelection<T extends ItemImpl> extends AbsSelection<T> {
         if (!t.equals(lastT)) {
             if (lastT != null) {
                 lastT.setSelected(false);
-                adapter().notifyItemChanged(adapter().indexOf(lastT), SelectionArgs.stateChange(itemClz(), lastT.isSelected()));
+                adapter().notifyItemChanged(adapter().indexOf(lastT), SelectorArgs.stateChange(itemClz(), lastT.isSelected()));
                 for (Callback c : callbacks) {
-                    c.onUnselected(lastT);
+                    c.onUnselected(lastT, adapter());
                 }
             }
             lastT = t;
             lastT.setSelected(true);
-            adapter().notifyItemChanged(adapter().indexOf(lastT), SelectionArgs.stateChange(itemClz(), lastT.isSelected()));
+            adapter().notifyItemChanged(adapter().indexOf(lastT), SelectorArgs.stateChange(itemClz(), lastT.isSelected()));
             for (Callback c : callbacks) {
-                c.onSelected(lastT);
+                c.onSelected(lastT, adapter());
             }
         }
         return true;
@@ -59,10 +54,10 @@ public class SingleSelection<T extends ItemImpl> extends AbsSelection<T> {
     }
 
     @Override
-    public SingleSelection<T> reset() {
+    public SingleSelector<T> reset() {
         if (lastT != null) {
             lastT.setSelected(false);
-            adapter().notifyItemChanged(adapter().indexOf(lastT), SelectionArgs.stateChange(itemClz(), lastT.isSelected()));
+            adapter().notifyItemChanged(adapter().indexOf(lastT), SelectorArgs.stateChange(itemClz(), lastT.isSelected()));
             lastT = null;
         }
         for (Callback c : callbacks) {

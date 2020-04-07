@@ -1,11 +1,11 @@
-package com.github.boybeak.adapter.selection;
+package com.github.boybeak.adapter.selector;
 
 import com.github.boybeak.adapter.ItemImpl;
 
-public interface Selection<T extends ItemImpl> {
+public interface Selector<T extends ItemImpl> {
 
-    Selection<T> begin();
-    Selection<T> reset();
+    Selector<T> begin();
+    Selector<T> reset();
     void end();
     boolean isInSelectMode();
 

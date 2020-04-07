@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.*;
 
 import com.github.boybeak.adapter.event.OnClick;
 import com.github.boybeak.adapter.event.OnLongClick;
-import com.github.boybeak.adapter.selection.MultipleSelection;
-import com.github.boybeak.adapter.selection.SelectionArgs;
-import com.github.boybeak.adapter.selection.SingleSelection;
+import com.github.boybeak.adapter.selector.MultipleSelector;
+import com.github.boybeak.adapter.selector.SelectorArgs;
+import com.github.boybeak.adapter.selector.SingleSelector;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -34,8 +34,8 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
 
     private Map<Class<? extends ItemImpl>, OnClick> clickMap = new HashMap<>();
     private Map<Class<? extends ItemImpl>, OnLongClick> longClickMap = new HashMap<>();
-    private Map<Class<? extends ItemImpl>, SingleSelection> singleSelectionMap = new HashMap<>();
-    private Map<Class<? extends ItemImpl>, MultipleSelection> multipleSelectionMap = new HashMap<>();
+    private Map<Class<? extends ItemImpl>, SingleSelector> singleSelectorMap = new HashMap<>();
+    private Map<Class<? extends ItemImpl>, MultipleSelector> multipleSelectorMap = new HashMap<>();
 
     private DiffUtil.Callback diffCallback = new DiffUtil.Callback() {
         @Override
@@ -113,7 +113,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
             View.OnClickListener clickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    click.onClick(v, item, position);
+                    click.onClick(v, item, position, AnyAdapter.this);
                 }
             };
             for (int id : ids) {
@@ -133,7 +133,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
             View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    return longClick.onLongClick(v, item, position);
+                    return longClick.onLongClick(v, item, position, AnyAdapter.this);
                 }
             };
             for (int id : ids) {
@@ -153,20 +153,20 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         } else {
 
             for (Object o : payloads) {
-                if (o instanceof SelectionArgs) {
+                if (o instanceof SelectorArgs) {
                     ItemImpl item = getItem(position);
                     if (!item.supportSelect()) {
                         continue;
                     }
-                    SelectionArgs args = (SelectionArgs)o;
+                    SelectorArgs args = (SelectorArgs)o;
                     if (!args.getClz().isInstance(item)) {
                         continue;
                     }
                     switch (args.action()) {
-                        case SelectionArgs.ACTION_STATE_CHANGE:
+                        case SelectorArgs.ACTION_STATE_CHANGE:
                             holder.onSelectedUpdate(item, args.value(), this);
                             break;
-                        case SelectionArgs.ACTION_MODE_CHANGE:
+                        case SelectorArgs.ACTION_MODE_CHANGE:
                             if (args.value()) {
                                 holder.onSelectionBegin();
                             } else {
@@ -282,11 +282,11 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
     }
 
     private <T extends ItemImpl> boolean isSelectableFor(Class<T> clz) {
-        SingleSelection ss = singleSelectionMap.get(clz);
+        SingleSelector ss = singleSelectorMap.get(clz);
         if (ss != null) {
             return ss.isInSelectMode();
         }
-        MultipleSelection ms = multipleSelectionMap.get(clz);
+        MultipleSelector ms = multipleSelectorMap.get(clz);
         if (ms != null) {
             return ms.isInSelectMode();
         }
@@ -382,14 +382,14 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         if (!t.supportSelect()) {
             return;
         }
-        SingleSelection ss = singleSelectionMap.get(t.getClass());
+        SingleSelector ss = singleSelectorMap.get(t.getClass());
         if (ss != null) {
             if (t.equals(ss.getSelectedItem())) {
                 ss.select(t);
             }
             return;
         }
-        MultipleSelection ms = multipleSelectionMap.get(t.getClass());
+        MultipleSelector ms = multipleSelectorMap.get(t.getClass());
         if (ms != null) {
             if (ms.isSelected(t)) {
                 ms.select(t);
@@ -482,10 +482,10 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
-                for (SingleSelection ss : singleSelectionMap.values()) {
+                for (SingleSelector ss : singleSelectorMap.values()) {
                     ss.reset();
                 }
-                for (MultipleSelection ms : multipleSelectionMap.values()) {
+                for (MultipleSelector ms : multipleSelectorMap.values()) {
                     ms.reset();
                 }
                 currentItems.clear();
@@ -580,29 +580,41 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
 
     }
 
-    public <T extends ItemImpl> SingleSelection<T> singleSelectionFor(Class<T> clz) {
-        SingleSelection ss;
-        if (singleSelectionMap.containsKey(clz)) {
-            ss = singleSelectionMap.get(clz);
+    /**
+     * Only one selector can be assigned for @param clz, obtain SingleSelector will remove MultipleSelector
+     * @param clz
+     * @param <T>
+     * @return
+     */
+    public <T extends ItemImpl> SingleSelector<T> singleSelectorFor(Class<T> clz) {
+        SingleSelector ss;
+        if (singleSelectorMap.containsKey(clz)) {
+            ss = singleSelectorMap.get(clz);
         } else {
-            ss = new SingleSelection<>(this, clz);
-            singleSelectionMap.put(clz, ss);
+            ss = new SingleSelector<>(this, clz);
+            singleSelectorMap.put(clz, ss);
         }
         //Remove multipleSelection, can only have one selection for one type data
-        multipleSelectionMap.remove(clz);
+        multipleSelectorMap.remove(clz);
         return ss;
     }
 
-    public <T extends ItemImpl> MultipleSelection<T> multipleSelectionFor(Class<T> clz) {
-        MultipleSelection ms;
-        if (multipleSelectionMap.containsKey(clz)) {
-            ms = multipleSelectionMap.get(clz);
+    /**
+     * Only one selector can be assigned  for @param clz, obtain MultipleSelector will remove SingleSelector
+     * @param clz
+     * @param <T>
+     * @return
+     */
+    public <T extends ItemImpl> MultipleSelector<T> multipleSelectorFor(Class<T> clz) {
+        MultipleSelector ms;
+        if (multipleSelectorMap.containsKey(clz)) {
+            ms = multipleSelectorMap.get(clz);
         } else {
-            ms = new MultipleSelection<>(this, clz);
-            multipleSelectionMap.put(clz, ms);
+            ms = new MultipleSelector<>(this, clz);
+            multipleSelectorMap.put(clz, ms);
         }
         //Remove singleSelection, can only have one selection for one type data
-        singleSelectionMap.remove(clz);
+        singleSelectorMap.remove(clz);
         return ms;
     }
 

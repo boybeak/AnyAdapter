@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../style.css">
 </HEAD>
 <BODY>
-<a href="../../index.html">any-adapter</a>&nbsp;/&nbsp;<a href="../index.html">com.github.boybeak.adapter.selection</a>&nbsp;/&nbsp;<a href="./index.html">AbsSelection</a><br/>
+<a href="../../index.html">any-adapter</a>&nbsp;/&nbsp;<a href="../index.html">com.github.boybeak.adapter.selector</a>&nbsp;/&nbsp;<a href="./index.html">AbsSelection</a><br/>
 <br/>
 <h1>AbsSelection</h1>
 <code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AbsSelection</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.github.boybeak.adapter/-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">Any</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-selection/index.html"><span class="identifier">Selection</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
@@ -17,7 +17,7 @@
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
-<code><span class="identifier">AbsSelection</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.selection.AbsSelection$<init>(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.selection.AbsSelection.T)))/adapter">adapter</span><span class="symbol">:</span>&nbsp;<a href="../../com.github.boybeak.adapter/-any-adapter/index.html"><span class="identifier">AnyAdapter</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="com.github.boybeak.adapter.selection.AbsSelection$<init>(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.selection.AbsSelection.T)))/tClass">tClass</span><span class="symbol">:</span>&nbsp;<a href="https://whatever/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span></code></td>
+<code><span class="identifier">AbsSelection</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.selector.AbsSelector$<init>(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.selector.AbsSelector.T)))/adapter">adapter</span><span class="symbol">:</span>&nbsp;<a href="../../com.github.boybeak.adapter/-any-adapter/index.html"><span class="identifier">AnyAdapter</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="com.github.boybeak.adapter.selector.AbsSelector$<init>(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.selector.AbsSelector.T)))/tClass">tClass</span><span class="symbol">:</span>&nbsp;<a href="https://whatever/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -64,21 +64,21 @@
 <h4><a href="register-callback.html">registerCallback</a></h4>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">registerCallback</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.selection.AbsSelection$registerCallback(com.github.boybeak.adapter.selection.Callback((com.github.boybeak.adapter.ItemImpl((kotlin.Any)))))/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../-callback/index.html"><span class="identifier">Callback</span></a><span class="symbol">&lt;</span><a href="../../com.github.boybeak.adapter/-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">registerCallback</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.selector.AbsSelector$registerCallback(com.github.boybeak.adapter.selector.Callback((com.github.boybeak.adapter.ItemImpl((kotlin.Any)))))/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../-callback/index.html"><span class="identifier">Callback</span></a><span class="symbol">&lt;</span><a href="../../com.github.boybeak.adapter/-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 <tr>
 <td>
 <h4><a href="select.html">select</a></h4>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">select</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.selection.AbsSelection$select(kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">select</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.selector.AbsSelector$select(kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
 </tr>
 <tr>
 <td>
 <h4><a href="unregister-callback.html">unregisterCallback</a></h4>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">unregisterCallback</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.selection.AbsSelection$unregisterCallback(com.github.boybeak.adapter.selection.Callback((com.github.boybeak.adapter.ItemImpl((kotlin.Any)))))/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../-callback/index.html"><span class="identifier">Callback</span></a><span class="symbol">&lt;</span><a href="../../com.github.boybeak.adapter/-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">unregisterCallback</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.selector.AbsSelector$unregisterCallback(com.github.boybeak.adapter.selector.Callback((com.github.boybeak.adapter.ItemImpl((kotlin.Any)))))/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../-callback/index.html"><span class="identifier">Callback</span></a><span class="symbol">&lt;</span><a href="../../com.github.boybeak.adapter/-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 </tbody>
 </table>

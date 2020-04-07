@@ -1,4 +1,4 @@
-package com.github.boybeak.adapter.selection;
+package com.github.boybeak.adapter.selector;
 
 import com.github.boybeak.adapter.AnyAdapter;
 import com.github.boybeak.adapter.ItemImpl;
@@ -6,7 +6,7 @@ import com.github.boybeak.adapter.ItemImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbsSelection<T extends ItemImpl> implements Selection<T> {
+public abstract class AbsSelector<T extends ItemImpl> implements Selector<T> {
     private AnyAdapter adapter;
     private Class<T> itemClass;
 
@@ -14,7 +14,7 @@ public abstract class AbsSelection<T extends ItemImpl> implements Selection<T> {
 
     List<Callback<T>> callbacks = new ArrayList<>();
 
-    public AbsSelection(AnyAdapter adapter, Class<T> tClass) {
+    public AbsSelector(AnyAdapter adapter, Class<T> tClass) {
         this.adapter = adapter;
         itemClass = tClass;
     }
@@ -27,7 +27,7 @@ public abstract class AbsSelection<T extends ItemImpl> implements Selection<T> {
     }
 
     @Override
-    public AbsSelection<T> begin() {
+    public AbsSelector<T> begin() {
         if (isInSelectMode) {
             return this;
         }
@@ -41,7 +41,7 @@ public abstract class AbsSelection<T extends ItemImpl> implements Selection<T> {
         }
         final int firstIndex = adapter.firstIndexOf(itemClass);
         final int lastIndex = adapter.lastIndexOf(itemClass);
-        adapter.notifyItemRangeChanged(firstIndex, lastIndex - firstIndex, SelectionArgs.modeChange(itemClass, isInSelectMode));
+        adapter.notifyItemRangeChanged(firstIndex, lastIndex - firstIndex, SelectorArgs.modeChange(itemClass, isInSelectMode));
         for (Callback c : callbacks) {
             c.onBegin();
         }
@@ -63,7 +63,7 @@ public abstract class AbsSelection<T extends ItemImpl> implements Selection<T> {
         }
         final int firstIndex = adapter.firstIndexOf(itemClass);
         final int lastIndex = adapter.lastIndexOf(itemClass);
-        adapter.notifyItemRangeChanged(firstIndex, lastIndex - firstIndex, SelectionArgs.modeChange(itemClass, isInSelectMode));
+        adapter.notifyItemRangeChanged(firstIndex, lastIndex - firstIndex, SelectorArgs.modeChange(itemClass, isInSelectMode));
         for (Callback c : callbacks) {
             c.onEnd();
         }

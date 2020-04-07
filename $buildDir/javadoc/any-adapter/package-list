@@ -1,7 +1,18 @@
 $dokka.format:html
 $dokka.linkExtension:html
-
+$dokka.location:com.github.boybeak.adapter.ext$contains(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.ext.contains.T)))com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/contains.html
+$dokka.location:com.github.boybeak.adapter.ext$first(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/first.html
+$dokka.location:com.github.boybeak.adapter.ext$firstAs(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/first-as.html
+$dokka.location:com.github.boybeak.adapter.ext$firstFor(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.ext.firstFor.T)))com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/first-for.html
+$dokka.location:com.github.boybeak.adapter.ext$firstSource(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/first-source.html
+$dokka.location:com.github.boybeak.adapter.ext$firstSourceAs(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/first-source-as.html
+$dokka.location:com.github.boybeak.adapter.ext$last(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/last.html
+$dokka.location:com.github.boybeak.adapter.ext$lastAs(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/last-as.html
+$dokka.location:com.github.boybeak.adapter.ext$lastFor(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.ext.lastFor.T)))com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/last-for.html
+$dokka.location:com.github.boybeak.adapter.ext$lastSource(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/last-source.html
+$dokka.location:com.github.boybeak.adapter.ext$lastSourceAs(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/last-source-as.html
 com.github.boybeak.adapter
 com.github.boybeak.adapter.event
+com.github.boybeak.adapter.ext
 com.github.boybeak.adapter.footer
-com.github.boybeak.adapter.selection
+com.github.boybeak.adapter.selector

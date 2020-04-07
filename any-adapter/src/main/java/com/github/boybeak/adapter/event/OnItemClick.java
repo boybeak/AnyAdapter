@@ -5,7 +5,7 @@ import com.github.boybeak.adapter.ItemImpl;
 
 public abstract class OnItemClick<T extends ItemImpl> implements OnClick<T> {
     @Override
-    public int[] getClickableIds() {
+    public final int[] getClickableIds() {
         return new int[]{0};
     }
 }

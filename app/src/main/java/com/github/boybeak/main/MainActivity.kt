@@ -11,8 +11,6 @@ import androidx.appcompat.app.AlertDialog
 import com.github.boybeak.adapter.AnyAdapter
 import com.github.boybeak.adapter.event.OnItemClick
 import com.github.boybeak.adapter.event.OnItemLongClick
-import com.github.boybeak.adapter.selection.MultipleSelection
-import com.github.boybeak.adapter.selection.SingleSelection
 import com.github.boybeak.easypermission.Callback
 import com.github.boybeak.easypermission.EasyPermission
 import com.github.boybeak.main.adapter.SongItem
@@ -21,12 +19,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val selectCallback = object : com.github.boybeak.adapter.selection.Callback<SongItem> {
-        override fun onSelected(t: SongItem) {
+    private val selectCallback = object : com.github.boybeak.adapter.selector.Callback<SongItem> {
+        override fun onSelected(t: SongItem, adapter: AnyAdapter) {
             Toast.makeText(this@MainActivity, "onSelected " + t.source().title, Toast.LENGTH_SHORT).show()
         }
 
-        override fun onUnselected(t: SongItem) {
+        override fun onUnselected(t: SongItem, adapter: AnyAdapter) {
             Toast.makeText(this@MainActivity, "onUnselected " + t.source().title, Toast.LENGTH_SHORT).show()
         }
 
@@ -44,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private val longClick: OnItemLongClick<SongItem> = object : OnItemLongClick<SongItem>(){
         override fun onLongClick(view: View, item: SongItem, position: Int): Boolean {
-            adapter.multipleSelectionFor(SongItem::class.java).run {
+            adapter.multipleSelectorFor(SongItem::class.java).run {
                 registerCallback(selectCallback)
                 begin(true)
                 select(item)
@@ -54,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
     private val click: OnItemClick<SongItem> = object : OnItemClick<SongItem>(){
         override fun onClick(view: View, item: SongItem, position: Int) {
-            val selection = adapter.multipleSelectionFor(SongItem::class.java)
+            val selection = adapter.multipleSelectorFor(SongItem::class.java)
             if (selection.isInSelectMode) {
                 selection.select(item)
             }
@@ -97,7 +95,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.delete -> {
-                adapter.multipleSelectionFor(SongItem::class.java).run {
+                adapter.multipleSelectorFor(SongItem::class.java).run {
                     remove()
                     end()
                 }
@@ -110,7 +108,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val selection = adapter.multipleSelectionFor(SongItem::class.java)
+        val selection = adapter.multipleSelectorFor(SongItem::class.java)
         if (selection.isInSelectMode) {
             val orderedList = selection.selectedItemsOrderByAdapter
             AlertDialog.Builder(this)

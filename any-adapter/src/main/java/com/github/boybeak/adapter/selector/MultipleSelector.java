@@ -1,4 +1,4 @@
-package com.github.boybeak.adapter.selection;
+package com.github.boybeak.adapter.selector;
 
 import android.util.Log;
 
@@ -10,26 +10,26 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MultipleSelection<T extends ItemImpl> extends AbsSelection<T> {
+public class MultipleSelector<T extends ItemImpl> extends AbsSelector<T> {
 
-    private static final String TAG = MultipleSelection.class.getSimpleName();
+    private static final String TAG = MultipleSelector.class.getSimpleName();
 
     private List<T> selectedItems = new LinkedList<T>();
 //    private List<T> selectedItemsAdapterCopy = new LinkedList<T>();
 
     private boolean isOrderSensitive = false;
 
-    public MultipleSelection(AnyAdapter adapter, Class<T> tClass) {
+    public MultipleSelector(AnyAdapter adapter, Class<T> tClass) {
         super(adapter, tClass);
     }
 
     @Override
-    final public MultipleSelection<T> begin() {
+    final public MultipleSelector<T> begin() {
         super.begin();
         return this;
     }
 
-    public MultipleSelection<T> begin(boolean isOrderSensitive) {
+    public MultipleSelector<T> begin(boolean isOrderSensitive) {
         this.isOrderSensitive = isOrderSensitive;
         return this.begin();
     }
@@ -53,7 +53,7 @@ public class MultipleSelection<T extends ItemImpl> extends AbsSelection<T> {
             selectedItems.remove(t);
 //            selectedItemsAdapterCopy.remove(t);
             t.setSelected(false);
-            adapter().notifyItemChanged(adapter().indexOf(t), SelectionArgs.stateChange(itemClz(),
+            adapter().notifyItemChanged(adapter().indexOf(t), SelectorArgs.stateChange(itemClz(),
                     t.isSelected()));
             if (isOrderSensitive) {
                 final int size = selectedItems.size();
@@ -63,16 +63,16 @@ public class MultipleSelection<T extends ItemImpl> extends AbsSelection<T> {
                 }
             }
             for (Callback c : callbacks) {
-                c.onUnselected(t);
+                c.onUnselected(t, adapter());
             }
         } else {
             selectedItems.add(t);
 //            addAtCopyList(t);
             t.setSelected(true);
-            adapter().notifyItemChanged(adapter().indexOf(t), SelectionArgs.stateChange(itemClz(),
+            adapter().notifyItemChanged(adapter().indexOf(t), SelectorArgs.stateChange(itemClz(),
                     t.isSelected()));
             for (Callback c : callbacks) {
-                c.onSelected(t);
+                c.onSelected(t, adapter());
             }
         }
         return true;
@@ -125,7 +125,7 @@ public class MultipleSelection<T extends ItemImpl> extends AbsSelection<T> {
     }
 
     @Override
-    public MultipleSelection<T> reset() {
+    public MultipleSelector<T> reset() {
         if (selectedItems.isEmpty()) {
             return this;
         }
@@ -134,7 +134,7 @@ public class MultipleSelection<T extends ItemImpl> extends AbsSelection<T> {
 //        selectedItemsAdapterCopy.clear();
         for (T t : copy) {
             t.setSelected(false);
-            adapter().notifyItemChanged(adapter().indexOf(t), SelectionArgs.stateChange(itemClz(),
+            adapter().notifyItemChanged(adapter().indexOf(t), SelectorArgs.stateChange(itemClz(),
                     t.isSelected()));
         }
         for (Callback c : callbacks) {

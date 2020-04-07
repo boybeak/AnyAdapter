@@ -30,7 +30,7 @@ class SongHolder(v: View) : AbsHolder<SongItem>(v) {
         Log.v(TAG, "onSelectedUpdate isSelected=$isSelected")
         checkFlag.isSelected = isSelected
         checkFlag.text = if (isSelected) {
-            (adapter.multipleSelectionFor(SongItem::class.java).indexOf(item) + 1).toString()
+            (adapter.multipleSelectorFor(SongItem::class.java).indexOf(item) + 1).toString()
         } else {
             ""
         }
