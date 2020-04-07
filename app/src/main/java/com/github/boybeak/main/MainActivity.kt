@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val longClick: OnItemLongClick<SongItem> = object : OnItemLongClick<SongItem>(){
-        override fun onLongClick(view: View, item: SongItem, position: Int): Boolean {
+        override fun onLongClick(view: View, item: SongItem, position: Int, adapter: AnyAdapter): Boolean {
             adapter.multipleSelectorFor(SongItem::class.java).run {
                 registerCallback(selectCallback)
                 begin(true)
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private val click: OnItemClick<SongItem> = object : OnItemClick<SongItem>(){
-        override fun onClick(view: View, item: SongItem, position: Int) {
+        override fun onClick(view: View, item: SongItem, position: Int, adapter: AnyAdapter) {
             val selection = adapter.multipleSelectorFor(SongItem::class.java)
             if (selection.isInSelectMode) {
                 selection.select(item)
