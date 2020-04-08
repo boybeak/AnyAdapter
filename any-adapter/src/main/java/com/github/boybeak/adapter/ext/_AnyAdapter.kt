@@ -75,3 +75,7 @@ fun <T : ItemImpl<*>> AnyAdapter.contains(clz: Class<T>): Boolean {
     }
     return false
 }
+
+fun AnyAdapter.isNotEmpty(): Boolean {
+    return !isEmpty
+}

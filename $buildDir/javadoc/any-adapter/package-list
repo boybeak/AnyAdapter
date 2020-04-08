@@ -6,6 +6,7 @@ $dokka.location:com.github.boybeak.adapter.ext$firstAs(com.github.boybeak.adapte
 $dokka.location:com.github.boybeak.adapter.ext$firstFor(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.ext.firstFor.T)))com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/first-for.html
 $dokka.location:com.github.boybeak.adapter.ext$firstSource(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/first-source.html
 $dokka.location:com.github.boybeak.adapter.ext$firstSourceAs(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/first-source-as.html
+$dokka.location:com.github.boybeak.adapter.ext$isNotEmpty(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/is-not-empty.html
 $dokka.location:com.github.boybeak.adapter.ext$last(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/last.html
 $dokka.location:com.github.boybeak.adapter.ext$lastAs(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/last-as.html
 $dokka.location:com.github.boybeak.adapter.ext$lastFor(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.ext.lastFor.T)))com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/last-for.html
