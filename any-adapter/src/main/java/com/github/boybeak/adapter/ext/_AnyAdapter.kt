@@ -18,8 +18,8 @@ fun AnyAdapter.firstSource(): Any? {
     return first()?.source()
 }
 
-fun <S, T : ItemImpl<S>> AnyAdapter.firstSourceAs(): S? {
-    return firstAs<T>()?.source()
+fun <S> AnyAdapter.firstSourceAs(): S? {
+    return first()?.source() as? S
 }
 
 fun <T : ItemImpl<*>> AnyAdapter.firstFor(clz: Class<T>): T? {
@@ -50,8 +50,8 @@ fun AnyAdapter.lastSource(): Any? {
     return last()?.source()
 }
 
-fun <S, T : ItemImpl<S>> AnyAdapter.lastSourceAs(): S? {
-    return lastAs<T>()?.source()
+fun <S> AnyAdapter.lastSourceAs(): S? {
+    return last()?.source() as? S
 }
 
 fun <T : ItemImpl<*>> AnyAdapter.lastFor(clz: Class<T>): T? {
