@@ -243,10 +243,52 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return -1;
     }
 
+    public int firstIndexBy(@NotNull IFilter<ItemImpl> filter) {
+        final int size = currentItems.size();
+        for (int i = 0; i < size; i++) {
+            if (filter.accept(getItem(i), i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public <T extends ItemImpl> int firstIndexBy(Class<T> clz, @NotNull IFilter<T> filter) {
+        final int size = currentItems.size();
+        for (int i = 0; i < size; i++) {
+            ItemImpl item = getItem(i);
+            if (clz.isInstance(item) && filter.accept((T)item, i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public int lastIndexOf(@NotNull Class<? extends ItemImpl> clz) {
         final int size = currentItems.size();
         for (int i = size - 1; i >= 0; i--) {
             if (clz.isInstance(currentItems.get(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int lastIndexBy(@NotNull IFilter<ItemImpl> filter) {
+        final int size = currentItems.size();
+        for (int i = size - 1; i >= 0; i--) {
+            if (filter.accept(getItem(i), i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public <T extends ItemImpl> int lastIndexBy(Class<T> clz, @NotNull IFilter<T> filter) {
+        final int size = currentItems.size();
+        for (int i = size - 1; i >= 0; i--) {
+            ItemImpl item = getItem(i);
+            if (clz.isInstance(item) && filter.accept((T)item, i)) {
                 return i;
             }
         }
