@@ -8,7 +8,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.jetbrains.annotations.NotNull;
+import androidx.annotation.NonNull;
 
 public abstract class AbsHolder<I extends ItemImpl> extends RecyclerView.ViewHolder {
 
@@ -32,7 +32,7 @@ public abstract class AbsHolder<I extends ItemImpl> extends RecyclerView.ViewHol
 
     }
 
-    public void onSelectedUpdate(@NonNull I item, @NotNull Boolean isSelected, @NonNull AnyAdapter adapter) {
+    public void onSelectedUpdate(@NonNull I item, @NonNull Boolean isSelected, @NonNull AnyAdapter adapter) {
 
     }
 

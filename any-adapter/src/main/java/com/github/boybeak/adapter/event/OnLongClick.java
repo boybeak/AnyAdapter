@@ -5,9 +5,9 @@ import android.view.View;
 import com.github.boybeak.adapter.AnyAdapter;
 import com.github.boybeak.adapter.ItemImpl;
 
-import org.jetbrains.annotations.NotNull;
+import androidx.annotation.NonNull;
 
 public interface OnLongClick<Item extends ItemImpl> {
     int[] getLongClickableIds();
-    boolean onLongClick(@NotNull View view, @NotNull Item item, int position, @NotNull AnyAdapter adapter);
+    boolean onLongClick(@NonNull View view, @NonNull Item item, int position, @NonNull AnyAdapter adapter);
 }

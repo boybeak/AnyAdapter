@@ -14,7 +14,7 @@ import com.github.boybeak.adapter.selector.MultipleSelector;
 import com.github.boybeak.adapter.selector.SelectorArgs;
 import com.github.boybeak.adapter.selector.SingleSelector;
 
-import org.jetbrains.annotations.NotNull;
+import androidx.annotation.NonNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -214,7 +214,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return currentItems.size();
     }
 
-    public int countOf(@NotNull Class<? extends ItemImpl> clz) {
+    public int countOf(@NonNull Class<? extends ItemImpl> clz) {
         final int size = currentItems.size();
         int sizeOfClz = 0;
         for (int i = 0; i < size; i++) {
@@ -229,11 +229,11 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return currentItems.get(position);
     }
 
-    public int indexOf(@NotNull ItemImpl item) {
+    public int indexOf(@NonNull ItemImpl item) {
         return currentItems.indexOf(item);
     }
 
-    public int firstIndexOf(@NotNull Class<? extends ItemImpl> clz) {
+    public int firstIndexOf(@NonNull Class<? extends ItemImpl> clz) {
         final int size = currentItems.size();
         for (int i = 0; i < size; i++) {
             if (clz.isInstance(currentItems.get(i))) {
@@ -243,7 +243,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return -1;
     }
 
-    public int firstIndexBy(@NotNull IFilter<ItemImpl> filter) {
+    public int firstIndexBy(@NonNull IFilter<ItemImpl> filter) {
         final int size = currentItems.size();
         for (int i = 0; i < size; i++) {
             if (filter.accept(getItem(i), i)) {
@@ -253,7 +253,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return -1;
     }
 
-    public <T extends ItemImpl> int firstIndexBy(Class<T> clz, @NotNull IFilter<T> filter) {
+    public <T extends ItemImpl> int firstIndexBy(Class<T> clz, @NonNull IFilter<T> filter) {
         final int size = currentItems.size();
         for (int i = 0; i < size; i++) {
             ItemImpl item = getItem(i);
@@ -264,7 +264,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return -1;
     }
 
-    public int lastIndexOf(@NotNull Class<? extends ItemImpl> clz) {
+    public int lastIndexOf(@NonNull Class<? extends ItemImpl> clz) {
         final int size = currentItems.size();
         for (int i = size - 1; i >= 0; i--) {
             if (clz.isInstance(currentItems.get(i))) {
@@ -274,7 +274,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return -1;
     }
 
-    public int lastIndexBy(@NotNull IFilter<ItemImpl> filter) {
+    public int lastIndexBy(@NonNull IFilter<ItemImpl> filter) {
         final int size = currentItems.size();
         for (int i = size - 1; i >= 0; i--) {
             if (filter.accept(getItem(i), i)) {
@@ -284,7 +284,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return -1;
     }
 
-    public <T extends ItemImpl> int lastIndexBy(Class<T> clz, @NotNull IFilter<T> filter) {
+    public <T extends ItemImpl> int lastIndexBy(Class<T> clz, @NonNull IFilter<T> filter) {
         final int size = currentItems.size();
         for (int i = size - 1; i >= 0; i--) {
             ItemImpl item = getItem(i);
@@ -299,7 +299,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return currentItems.contains(t);
     }
 
-    public <T extends ItemImpl> List<T> getItemsAs(@NotNull Class<T> clz) {
+    public <T extends ItemImpl> List<T> getItemsAs(@NonNull Class<T> clz) {
         final int size = currentItems.size();
         List<T> ts = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -315,11 +315,11 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return (T)getItem(position);
     }
 
-    public <T extends ItemImpl> void setOnClickFor(@NotNull Class<T> clz, @NotNull OnClick<T> click) {
+    public <T extends ItemImpl> void setOnClickFor(@NonNull Class<T> clz, @NonNull OnClick<T> click) {
         clickMap.put(clz, click);
     }
 
-    public <T extends ItemImpl> void setOnLongClickFor(@NotNull Class<T> clz, @NotNull OnLongClick<T> click) {
+    public <T extends ItemImpl> void setOnLongClickFor(@NonNull Class<T> clz, @NonNull OnLongClick<T> click) {
         longClickMap.put(clz, click);
     }
 
@@ -342,7 +342,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         item.setSelectable(isSelectableFor(item.getClass()));
     }
 
-    public <T extends ItemImpl> void add(final int position, @NotNull final T item) {
+    public <T extends ItemImpl> void add(final int position, @NonNull final T item) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
@@ -353,7 +353,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         syncNotify(callback);
     }
 
-    public <T extends ItemImpl> void add(@NotNull final T item) {
+    public <T extends ItemImpl> void add(@NonNull final T item) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
@@ -364,15 +364,15 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         syncNotify(callback);
     }
 
-    public <S, T extends ItemImpl<S>> void add(@NotNull S s, @NotNull IConverter<S, T> converter) {
+    public <S, T extends ItemImpl<S>> void add(@NonNull S s, @NonNull IConverter<S, T> converter) {
         addAll(converter.convert(s));
     }
 
-    public <S, T extends ItemImpl<S>> void add(int position, @NotNull S s, @NotNull IConverter<S, T> converter) {
+    public <S, T extends ItemImpl<S>> void add(int position, @NonNull S s, @NonNull IConverter<S, T> converter) {
         addAll(position, converter.convert(s));
     }
 
-    public <T extends ItemImpl> void replace(final int position, @NotNull final T item) {
+    public <T extends ItemImpl> void replace(final int position, @NonNull final T item) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
@@ -383,7 +383,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         syncNotify(callback);
     }
 
-    public <T extends ItemImpl> void addAll(@NotNull final Collection<T> items) {
+    public <T extends ItemImpl> void addAll(@NonNull final Collection<T> items) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
@@ -396,7 +396,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         syncNotify(callback);
     }
 
-    public <T extends ItemImpl> void addAll(final int position, @NotNull final Collection<T> items) {
+    public <T extends ItemImpl> void addAll(final int position, @NonNull final Collection<T> items) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
@@ -409,7 +409,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         syncNotify(callback);
     }
 
-    private <S, T extends ItemImpl<S>> List<T> doConvert(@NotNull List<S> sources, @NotNull IEachConverter<S, T> converter) {
+    private <S, T extends ItemImpl<S>> List<T> doConvert(@NonNull List<S> sources, @NonNull IEachConverter<S, T> converter) {
         List<T> items = new ArrayList<>(sources.size());
         for (int i = 0; i < sources.size(); i++) {
             S s = sources.get(i);
@@ -420,11 +420,11 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return items;
     }
 
-    public <S, T extends ItemImpl<S>> void addAll(int position, @NotNull List<S> sources, @NotNull IEachConverter<S, T> converter) {
+    public <S, T extends ItemImpl<S>> void addAll(int position, @NonNull List<S> sources, @NonNull IEachConverter<S, T> converter) {
         addAll(position, doConvert(sources, converter));
     }
 
-    public <S, T extends ItemImpl<S>> void addAll(@NotNull List<S> sources, @NotNull IEachConverter<S, T> converter) {
+    public <S, T extends ItemImpl<S>> void addAll(@NonNull List<S> sources, @NonNull IEachConverter<S, T> converter) {
         addAll(doConvert(sources, converter));
     }
 
@@ -469,7 +469,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         syncNotify(callback);
     }
 
-    public <T extends ItemImpl> void removeAll(@NotNull final Collection<T> items) {
+    public <T extends ItemImpl> void removeAll(@NonNull final Collection<T> items) {
         Callback callback = new Callback() {
             @Override
             public void doChange() {
@@ -522,7 +522,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
 
         removeBy(clz, new IFilter<T>() {
             @Override
-            public boolean accept(@NotNull T t, int position) {
+            public boolean accept(@NonNull T t, int position) {
                 return true;
             }
         });
@@ -636,7 +636,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
      * @param <T>
      * @return
      */
-    public <T extends ItemImpl> SingleSelector<T> singleSelectorFor(@NotNull Class<T> clz) {
+    public <T extends ItemImpl> SingleSelector<T> singleSelectorFor(@NonNull Class<T> clz) {
         SingleSelector ss;
         if (singleSelectorMap.containsKey(clz)) {
             ss = singleSelectorMap.get(clz);
@@ -655,7 +655,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
      * @param <T>
      * @return
      */
-    public <T extends ItemImpl> MultipleSelector<T> multipleSelectorFor(@NotNull Class<T> clz) {
+    public <T extends ItemImpl> MultipleSelector<T> multipleSelectorFor(@NonNull Class<T> clz) {
         MultipleSelector ms;
         if (multipleSelectorMap.containsKey(clz)) {
             ms = multipleSelectorMap.get(clz);
@@ -690,16 +690,16 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
     }
 
     public interface IEachConverter<S, I extends ItemImpl<S>> {
-        I convert(@NotNull S s, int position);
+        I convert(@NonNull S s, int position);
     }
 
     public interface IConverter<S, I extends ItemImpl<S>> {
-        @NotNull
-        List<I> convert(@NotNull S s);
+        @NonNull
+        List<I> convert(@NonNull S s);
     }
 
     public interface IFilter<T extends ItemImpl> {
-        boolean accept(@NotNull T t, int position);
+        boolean accept(@NonNull T t, int position);
     }
 
     public interface IRun<T extends ItemImpl> {
@@ -708,7 +708,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
          * @param position
          * @return break if after this method. true -> break; false -> not
          */
-        boolean run(@NotNull T t, int position);
+        boolean run(@NonNull T t, int position);
     }
 
 }

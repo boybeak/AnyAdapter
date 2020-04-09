@@ -1,14 +1,14 @@
 package com.github.boybeak.adapter;
 
 import androidx.annotation.LayoutRes;
-import org.jetbrains.annotations.NotNull;
+import androidx.annotation.NonNull;
 
 public interface ItemImpl<T> {
     T source();
     @LayoutRes int layoutId();
-    @NotNull
+    @NonNull
     Class<? extends AbsHolder> holderClass();
-    boolean areContentsSame(@NotNull ItemImpl other);
+    boolean areContentsSame(@NonNull ItemImpl other);
 
     boolean supportSelect();
 

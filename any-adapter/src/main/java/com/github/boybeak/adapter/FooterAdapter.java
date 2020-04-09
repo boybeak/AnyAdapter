@@ -7,7 +7,7 @@ import androidx.annotation.StringRes;
 
 import com.github.boybeak.adapter.footer.Footer;
 
-import org.jetbrains.annotations.NotNull;
+import androidx.annotation.NonNull;
 
 public class FooterAdapter extends AnyAdapter {
 
@@ -16,12 +16,12 @@ public class FooterAdapter extends AnyAdapter {
 
     private View.OnClickListener footerClick;
 
-    public FooterAdapter(@NotNull AbsItem<Footer> item, @NotNull NotifyCallback callback) {
+    public FooterAdapter(@NonNull AbsItem<Footer> item, @NonNull NotifyCallback callback) {
         super(callback);
         init(item);
     }
 
-    public FooterAdapter(@NotNull AbsItem<Footer> item) {
+    public FooterAdapter(@NonNull AbsItem<Footer> item) {
         super();
         init(item);
     }

@@ -4,17 +4,17 @@ import androidx.annotation.NonNull;
 
 import com.github.boybeak.adapter.footer.Footer;
 
-import org.jetbrains.annotations.NotNull;
+import androidx.annotation.NonNull;
 
 public class AutoFooterAdapter extends FooterAdapter {
 
     private FooterMsgCallback msgCallback = null;
 
-    public AutoFooterAdapter(@NotNull AbsItem<Footer> item, @NotNull NotifyCallback callback) {
+    public AutoFooterAdapter(@NonNull AbsItem<Footer> item, @NonNull NotifyCallback callback) {
         super(item, callback);
     }
 
-    public AutoFooterAdapter(@NotNull AbsItem<Footer> item) {
+    public AutoFooterAdapter(@NonNull AbsItem<Footer> item) {
         super(item);
     }
 
