@@ -4,7 +4,7 @@ import com.github.boybeak.adapter.ItemImpl;
 
 public abstract class OnItemLongClick<T extends ItemImpl> implements OnLongClick<T> {
     @Override
-    public int[] getLongClickableIds() {
+    public final int[] getLongClickableIds() {
         return new int[]{0};
     }
 }
