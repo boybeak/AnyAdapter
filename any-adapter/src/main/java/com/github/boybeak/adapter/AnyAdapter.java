@@ -519,7 +519,6 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         }
     }*/
     public <T extends ItemImpl> void removeAll(@NonNull Class<T> clz) {
-
         removeBy(clz, new IFilter<T>() {
             @Override
             public boolean accept(@NonNull T t, int position) {

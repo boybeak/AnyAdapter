@@ -72,6 +72,12 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.adapter = adapter
 
+        /*adapter.add(0, object : AnyAdapter.IConverter<Int, SongItem>{
+            override fun convert(s: Int): MutableList<SongItem> {
+
+            }
+        })*/
+
         EasyPermission.ask(Manifest.permission.READ_EXTERNAL_STORAGE)
             .go(this, object : Callback {
                 override fun onGranted(permissions: MutableList<String>) {
@@ -124,10 +130,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadSongs() {
         ScanTask { songs ->
-            adapter.addAll(List(songs.size) {
-                SongItem(songs[it])
-            })
+            adapter.addAll(songs) { s, position -> SongItem(s) }
         }.execute(this)
     }
+
+
 
 }

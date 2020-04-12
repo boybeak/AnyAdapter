@@ -64,7 +64,9 @@ class PostHolder(v: View) : AbsHolder<PostItem>(v) {
 
 
 
-### add and addAll
+### Add and addAll
+
+#### add
 
 ```kotlin
 val post = xxx
@@ -73,6 +75,22 @@ adapter.add(PostItem(post))
 ```
 
 This is a typical `add` operation. No need to do any **notifyDataXXXChanged** operations. The data will refresh automatically.
+
+Another **one-to-many** add function that can convert one data element to item list.
+
+```kotlin
+adapter.add(post, object : IConverter<Post, TextItem> {
+  override fun convert(s: Post): List<TextItem> {
+    return mutableListOf(
+      TextItem(s.title), TextItem(s.text)
+    )
+  }
+})
+```
+
+
+
+#### addAll
 
 ```kotlin
 val posts = ArrayList<Post>();
@@ -87,8 +105,10 @@ adapter.addAll(postItems)
 Actually, there's another better function.
 
 ```kotlin
-adapter.addAll(posts, object : IEachConverter<Post, PostItem> { s, position ->
-  PostItem(s)
+adapter.addAll(posts, object : AnyAdapter.IEachConverter<Post, PostItem> {
+  override fun convert(s: Post, position: Int): PostItem {
+    return PostItem(s)
+  }
 })
 /* With lamada
 * adapter.addAll(posts) { s, position ->
@@ -97,5 +117,58 @@ adapter.addAll(posts, object : IEachConverter<Post, PostItem> { s, position ->
 */
 ```
 
-If 
+
+
+### Remove
+
+**single-remove** 
+
+Use  `remove(Int)` or `remove(Item)`.
+
+**multiple-remove**
+
+For removing item collection, use `removeAll(Collection<Item>)`;
+
+For removing by conditions, use `removeBy(IFilter)`;
+
+For removing by item type and conditions, use `removeBy(Class<Item>, IFilter)`;
+
+For removing by item type, use `removeAll(Class<Item>)`;
+
+For clearing all, use `clear`;
+
+
+
+### Replace
+
+`replace(position, item)`.
+
+
+
+### FilterRun
+
+`filterRun(IFilter, IRun)` - execute `IRun` if accepted by `IFilter`;
+
+`filterRun(Class<Item>, IFilter, IRun)` - execute `IRun` if item is an instance of `Class<Item>` and accepted by `IFilter`;
+
+
+
+### Selector
+
+There are 2 build-in selectors, `SingleSelector` and `MultipleSelector`. 
+
+You can get selector instance by `singleSelectorFor(Class<Item>)` or `multipleSelectorFor(Class<Item>)`. This will make `SingleSelector` and `MultipleSelector` instance for the first time called. 
+
+>  Before do select operation, make sure that your item class support select. Override **supportSelect** function and return true.
+
+Call `begin()` befor call `select` that make sure the selector is in select mode.
+
+```kotlin
+val selector = adapter.singleSelectorFor(Post::class.java)
+selector.begin()
+selector.select(0) // Select the 0 item
+selector.remove() // Remove the selected item
+```
+
+After operations, call `end()`.
 
