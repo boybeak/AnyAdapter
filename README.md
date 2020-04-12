@@ -172,3 +172,57 @@ selector.remove() // Remove the selected item
 
 After operations, call `end()`.
 
+
+
+
+
+### OnClick and OnLongClick
+
+**OnClick**
+
+```kotlin
+adapter.setOnClickFor(PostItem::class.java, object : OnClick<PostItem> {
+  override fun getClickableIds() {
+    return intArrayOf(0, R.id.post_title) // 0 for the itemView
+  }
+  override fun onClick(view: View, item: PostItem, position: Int, adapter: AnyAdapter) {
+    when(view.id) {
+      R.id.post_title -> {
+        
+      }
+      else -> {
+        // Do item click here
+      }
+    }
+  }
+})
+```
+
+If you just want to set click event to item view, you can use `OnItemClick` directly. No need to override *getClickableIds*.
+
+
+
+**OnLongClick**
+
+```kotlin
+adapter.setOnLongClickFor(PostItem::class.java, object : OnClick<PostItem> {
+  override fun getLongClickableIds() {
+    return intArrayOf(0, R.id.post_title) // 0 for the itemView
+  }
+  override fun onLongClick(view: View, item: PostItem, position: Int, adapter: AnyAdapter): Boolean {
+    when(view.id) {
+      R.id.post_title -> {
+        
+      }
+      else -> {
+        // Do item click here
+      }
+    }
+    return true
+  }
+})
+```
+
+If you just want to set click event to item view, you can use `OnItemLongClick` directly. No need to override *getLongClickableIds*.
+
+> Another alternative choice is `OnItemEvent` for both `OnItemClick` and `OnItemLongClick`.
