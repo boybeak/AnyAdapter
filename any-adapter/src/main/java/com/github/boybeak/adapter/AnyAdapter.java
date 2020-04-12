@@ -364,11 +364,11 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         syncNotify(callback);
     }
 
-    public <S, T extends ItemImpl<S>> void add(@NonNull S s, @NonNull IConverter<S, T> converter) {
+    public <S, T extends ItemImpl> void add(@NonNull S s, @NonNull IConverter<S, T> converter) {
         addAll(converter.convert(s));
     }
 
-    public <S, T extends ItemImpl<S>> void add(int position, @NonNull S s, @NonNull IConverter<S, T> converter) {
+    public <S, T extends ItemImpl> void add(int position, @NonNull S s, @NonNull IConverter<S, T> converter) {
         addAll(position, converter.convert(s));
     }
 
@@ -693,7 +693,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         I convert(@NonNull S s, int position);
     }
 
-    public interface IConverter<S, I extends ItemImpl<S>> {
+    public interface IConverter<S, I extends ItemImpl> {
         @NonNull
         List<I> convert(@NonNull S s);
     }
