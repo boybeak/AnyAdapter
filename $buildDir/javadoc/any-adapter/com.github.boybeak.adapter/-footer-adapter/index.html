@@ -8,7 +8,7 @@
 <a href="../../index.html">any-adapter</a>&nbsp;/&nbsp;<a href="../index.html">com.github.boybeak.adapter</a>&nbsp;/&nbsp;<a href="./index.html">FooterAdapter</a><br/>
 <br/>
 <h1>FooterAdapter</h1>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">FooterAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-any-adapter/index.html"><span class="identifier">AnyAdapter</span></a></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">FooterAdapter</span><span class="symbol">&lt;</span><span class="identifier">FooterItem</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><a href="../../com.github.boybeak.adapter.footer/-footer/index.html"><span class="identifier">Footer</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-any-adapter/index.html"><span class="identifier">AnyAdapter</span></a></code>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,8 +17,8 @@
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
-<code><span class="identifier">FooterAdapter</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$<init>(com.github.boybeak.adapter.AbsItem((com.github.boybeak.adapter.footer.Footer)), com.github.boybeak.adapter.AnyAdapter.NotifyCallback)/item">item</span><span class="symbol">:</span>&nbsp;<a href="../-abs-item/index.html"><span class="identifier">AbsItem</span></a><span class="symbol">&lt;</span><a href="../../com.github.boybeak.adapter.footer/-footer/index.html"><span class="identifier">Footer</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$<init>(com.github.boybeak.adapter.AbsItem((com.github.boybeak.adapter.footer.Footer)), com.github.boybeak.adapter.AnyAdapter.NotifyCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<span class="identifier">NotifyCallback</span><span class="symbol">)</span></code><br/>
-<code><span class="identifier">FooterAdapter</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$<init>(com.github.boybeak.adapter.AbsItem((com.github.boybeak.adapter.footer.Footer)))/item">item</span><span class="symbol">:</span>&nbsp;<a href="../-abs-item/index.html"><span class="identifier">AbsItem</span></a><span class="symbol">&lt;</span><a href="../../com.github.boybeak.adapter.footer/-footer/index.html"><span class="identifier">Footer</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+<code><span class="identifier">FooterAdapter</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$<init>(com.github.boybeak.adapter.FooterAdapter.FooterItem, com.github.boybeak.adapter.AnyAdapter.NotifyCallback)/item">item</span><span class="symbol">:</span>&nbsp;<span class="identifier">FooterItem</span><span class="symbol">, </span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$<init>(com.github.boybeak.adapter.FooterAdapter.FooterItem, com.github.boybeak.adapter.AnyAdapter.NotifyCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<span class="identifier">NotifyCallback</span><span class="symbol">)</span></code><br/>
+<code><span class="identifier">FooterAdapter</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$<init>(com.github.boybeak.adapter.FooterAdapter.FooterItem)/item">item</span><span class="symbol">:</span>&nbsp;<span class="identifier">FooterItem</span><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -52,6 +52,13 @@
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getItemViewType</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$getItemViewType(kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="hide-footer.html">hideFooter</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hideFooter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 <tr>
 <td>
@@ -127,17 +134,17 @@
 </tr>
 <tr>
 <td>
-<h4><a href="replace-footer-item.html">replaceFooterItem</a></h4>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">replaceFooterItem</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$replaceFooterItem(com.github.boybeak.adapter.ItemImpl((com.github.boybeak.adapter.footer.Footer)))/newFooterItem">newFooterItem</span><span class="symbol">:</span>&nbsp;<a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><a href="../../com.github.boybeak.adapter.footer/-footer/index.html"><span class="identifier">Footer</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
-</tr>
-<tr>
-<td>
 <h4><a href="set-footer-click.html">setFooterClick</a></h4>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">setFooterClick</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$setFooterClick(android.view.View.OnClickListener)/footerClick">footerClick</span><span class="symbol">:</span>&nbsp;<a href="https://whatever/android/view/View/OnClickListener.html"><span class="identifier">OnClickListener</span></a><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">setFooterClick</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$setFooterClick(com.github.boybeak.adapter.event.OnClick((com.github.boybeak.adapter.FooterAdapter.FooterItem)))/click">click</span><span class="symbol">:</span>&nbsp;<a href="../../com.github.boybeak.adapter.event/-on-click/index.html"><span class="identifier">OnClick</span></a><span class="symbol">&lt;</span><span class="identifier">FooterItem</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-footer-long-click.html">setFooterLongClick</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">setFooterLongClick</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$setFooterLongClick(com.github.boybeak.adapter.event.OnLongClick((com.github.boybeak.adapter.FooterAdapter.FooterItem)))/longClick">longClick</span><span class="symbol">:</span>&nbsp;<a href="../../com.github.boybeak.adapter.event/-on-long-click/index.html"><span class="identifier">OnLongClick</span></a><span class="symbol">&lt;</span><span class="identifier">FooterItem</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 <tr>
 <td>
@@ -145,6 +152,13 @@
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">setFooterSummary</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.FooterAdapter$setFooterSummary(kotlin.String)/summary">summary</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="show-footer.html">showFooter</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">showFooter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -156,7 +170,7 @@
 <h4><a href="../-auto-footer-adapter/index.html">AutoFooterAdapter</a></h4>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">AutoFooterAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">FooterAdapter</span></a></code></td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">AutoFooterAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">FooterAdapter</span></a><span class="symbol">&lt;</span><a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
 </tr>
 </tbody>
 </table>

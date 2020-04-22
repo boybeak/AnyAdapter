@@ -5,40 +5,84 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
+import com.github.boybeak.adapter.event.OnClick;
+import com.github.boybeak.adapter.event.OnLongClick;
 import com.github.boybeak.adapter.footer.Footer;
 
 import androidx.annotation.NonNull;
 
-public class FooterAdapter extends AnyAdapter {
+public class FooterAdapter<FooterItem extends ItemImpl<Footer>> extends AnyAdapter {
 
     private Footer footer = null;
-    private ItemImpl<Footer> footerItem;
+    private FooterItem footerItem;
 
-    private View.OnClickListener footerClick;
+    private OnClick<FooterItem> footerClick;
+    private OnLongClick<FooterItem> footerLongClick;
+    private boolean hideFooter = false;
 
-    public FooterAdapter(@NonNull AbsItem<Footer> item, @NonNull NotifyCallback callback) {
+    public FooterAdapter(@NonNull FooterItem item, @NonNull NotifyCallback callback) {
         super(callback);
         init(item);
     }
 
-    public FooterAdapter(@NonNull AbsItem<Footer> item) {
+    public FooterAdapter(@NonNull FooterItem item) {
         super();
         init(item);
     }
 
-    private void init(AbsItem<Footer> footerItem) {
+    private void init(FooterItem footerItem) {
         footer = footerItem.source();
         this.footerItem = footerItem;
         putType(footerItem.layoutId(), footerItem.holderClass());
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AbsHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AbsHolder holder, final int position) {
         if (position < getItemCountIgnoreFooter()) {
             super.onBindViewHolder(holder, position);
         } else {
             holder.onBind(footerItem, position, this);
-            holder.itemView.setOnClickListener(footerClick);
+
+            if (footerClick != null) {
+                int[] ids = footerClick.getClickableIds();
+                if (ids == null || ids.length == 0) {
+                    return;
+                }
+                View.OnClickListener clickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        footerClick.onClick(v, footerItem, position, FooterAdapter.this);
+                    }
+                };
+                for (int id : ids) {
+                    if (id == 0) {
+                        holder.itemView.setOnClickListener(clickListener);
+                    } else {
+                        holder.itemView.findViewById(id).setOnClickListener(clickListener);
+                    }
+                }
+            }
+            if (footerLongClick != null) {
+                int[] ids = footerLongClick.getLongClickableIds();
+                if (ids == null || ids.length == 0) {
+                    return;
+                }
+                View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        return footerLongClick.onLongClick(v, footerItem, position, FooterAdapter.this);
+                    }
+                };
+                for (int id : ids) {
+                    if (id == 0) {
+                        holder.itemView.setOnLongClickListener(longClickListener);
+                    } else {
+                        holder.itemView.findViewById(id).setOnLongClickListener(longClickListener);
+                    }
+                }
+            }
+
+            holder.itemView.setVisibility(hideFooter ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -80,13 +124,13 @@ public class FooterAdapter extends AnyAdapter {
         notifyItemChanged(getItemCount() - 1);
     }
 
-    public void replaceFooterItem(ItemImpl<Footer> newFooterItem) {
+    /*public void replaceFooterItem(ItemImpl<Footer> newFooterItem) {
         newFooterItem.source().setState(footer.getState());
         footer = newFooterItem.source();
         footerItem = newFooterItem;
         putType(newFooterItem.layoutId(), newFooterItem.holderClass());
         notifyFooter();
-    }
+    }*/
 
     public void notifyFooter() {
         notifyFooter(footer.getState(), footer.getIcon(), footer.getMessage());
@@ -129,13 +173,33 @@ public class FooterAdapter extends AnyAdapter {
         notifyFooter();
     }
 
-    public void setFooterClick(View.OnClickListener footerClick) {
+    /*public void setFooterClick(View.OnClickListener footerClick) {
         this.footerClick = footerClick;
+        notifyFooter();
+    }*/
+
+    public void setFooterClick(OnClick<FooterItem> click) {
+        footerClick = click;
+        notifyFooter();
+    }
+
+    public void setFooterLongClick(OnLongClick<FooterItem> longClick) {
+        footerLongClick = longClick;
         notifyFooter();
     }
 
     public boolean isLoading() {
         return footer.getState() == Footer.LOADING;
+    }
+
+    public void hideFooter() {
+        hideFooter = true;
+        notifyFooter();
+    }
+
+    public void showFooter() {
+        hideFooter = false;
+        notifyFooter();
     }
 
 }

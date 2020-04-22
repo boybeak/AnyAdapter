@@ -9,11 +9,16 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.github.boybeak.adapter.AnyAdapter
+import com.github.boybeak.adapter.FooterAdapter
+import com.github.boybeak.adapter.event.OnClick
 import com.github.boybeak.adapter.event.OnItemClick
 import com.github.boybeak.adapter.event.OnItemLongClick
+import com.github.boybeak.adapter.ext.isEmptyIgnoreFooter
+import com.github.boybeak.adapter.footer.Footer
 import com.github.boybeak.easypermission.Callback
 import com.github.boybeak.easypermission.EasyPermission
 import com.github.boybeak.main.adapter.SongItem
+import com.github.boybeak.main.adapter.item.FooterItem
 import com.github.boybeak.main.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -52,13 +57,14 @@ class MainActivity : AppCompatActivity() {
     }
     private val click: OnItemClick<SongItem> = object : OnItemClick<SongItem>(){
         override fun onClick(view: View, item: SongItem, position: Int, adapter: AnyAdapter) {
+            this@MainActivity.adapter.showFooter()
             val selection = adapter.multipleSelectorFor(SongItem::class.java)
             if (selection.isInSelectMode) {
                 selection.select(item)
             }
         }
     }
-    private val adapter = AnyAdapter().apply {
+    private val adapter = FooterAdapter(FooterItem(Footer())).apply {
         setOnClickFor(SongItem::class.java, click)
         setOnLongClickFor(SongItem::class.java, longClick)
     }
@@ -131,6 +137,20 @@ class MainActivity : AppCompatActivity() {
     private fun loadSongs() {
         ScanTask { songs ->
             adapter.addAll(songs) { s, position -> SongItem(s) }
+            adapter.setFooterClick(object : OnClick<FooterItem>{
+                override fun getClickableIds(): IntArray {
+                    return intArrayOf(R.id.hideBtn)
+                }
+
+                override fun onClick(
+                    view: View,
+                    item: FooterItem,
+                    position: Int,
+                    adapter: AnyAdapter
+                ) {
+                    this@MainActivity.adapter.hideFooter()
+                }
+            })
         }.execute(this)
     }
 
