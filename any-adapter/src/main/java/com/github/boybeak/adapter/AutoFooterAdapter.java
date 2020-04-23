@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 public class AutoFooterAdapter<FooterItem extends ItemImpl<Footer>> extends FooterAdapter<FooterItem> {
 
-    private FooterMsgCallback msgCallback = null;
+    private FooterMsgCallback<FooterItem> msgCallback = null;
 
     public AutoFooterAdapter(@NonNull FooterItem item, @NonNull NotifyCallback callback) {
         super(item, callback);
@@ -50,15 +50,15 @@ public class AutoFooterAdapter<FooterItem extends ItemImpl<Footer>> extends Foot
         return msgCallback.msgForOthers(this, state);
     }
 
-    public void setFooterMsgCallback(FooterMsgCallback callback) {
+    public void setFooterMsgCallback(FooterMsgCallback<FooterItem> callback) {
         msgCallback = callback;
     }
 
-    public interface FooterMsgCallback {
-        String msgForNoOne(@NonNull AutoFooterAdapter adapter);
-        String msgForNoMore(@NonNull AutoFooterAdapter adapter);
-        String msgForSuccess(@NonNull AutoFooterAdapter adapter);
-        String msgForOthers(@NonNull AutoFooterAdapter adapter, int state);
+    public interface FooterMsgCallback<FooterItem extends ItemImpl<Footer>> {
+        String msgForNoOne(@NonNull AutoFooterAdapter<FooterItem> adapter);
+        String msgForNoMore(@NonNull AutoFooterAdapter<FooterItem> adapter);
+        String msgForSuccess(@NonNull AutoFooterAdapter<FooterItem> adapter);
+        String msgForOthers(@NonNull AutoFooterAdapter<FooterItem> adapter, int state);
     }
 
 }
