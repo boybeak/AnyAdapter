@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.github.boybeak.adapter.AnyAdapter
+import com.github.boybeak.adapter.AutoFooterAdapter
 import com.github.boybeak.adapter.FooterAdapter
 import com.github.boybeak.adapter.event.OnClick
 import com.github.boybeak.adapter.event.OnItemClick
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private val adapter = FooterAdapter(FooterItem(Footer())).apply {
+    private val adapter = AutoFooterAdapter<FooterItem>(FooterItem(Footer())).apply {
         setOnClickFor(SongItem::class.java, click)
         setOnLongClickFor(SongItem::class.java, longClick)
     }
