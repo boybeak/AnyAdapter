@@ -79,3 +79,79 @@ fun <T : ItemImpl<*>> AnyAdapter.contains(clz: Class<T>): Boolean {
 fun AnyAdapter.isNotEmpty(): Boolean {
     return !isEmpty
 }
+
+fun AnyAdapter.forEach(block: (item: ItemImpl<*>) -> Unit) {
+    repeat(itemCount) {
+        block.invoke(getItem(it))
+    }
+}
+
+fun AnyAdapter.forEachIndexed(block: (position: Int, item: ItemImpl<*>) -> Unit) {
+    repeat(itemCount) {
+        block.invoke(it, getItem(it))
+    }
+}
+
+fun <T : ItemImpl<*>> AnyAdapter.forEachIndexed(clz: Class<T>, block: (position: Int, item: T) -> Unit) {
+    repeat(itemCount) {
+        val item = getItem(it)
+        if (clz.isInstance(item))  {
+            block.invoke(it, item as T)
+        }
+    }
+}
+
+fun AnyAdapter.countIgnore(vararg clz: Class<out ItemImpl<*>>): Int {
+    if (clz.isEmpty()) {
+        return itemCount
+    }
+    var count = 0
+    for (i in 0 until itemCount) {
+        if (isIn(getItem(i), *clz)) {
+            continue
+        }
+        count++
+    }
+    return count
+}
+
+fun AnyAdapter.countOnly(vararg clz: Class<out ItemImpl<*>>): Int {
+    if (clz.isEmpty()) {
+        return 0
+    }
+    var count = 0
+    for (i in 0 until itemCount) {
+        if (isIn(getItem(i), *clz)) {
+            count++
+        }
+    }
+    return count
+}
+
+fun AnyAdapter.contains(block: (position: Int, item: ItemImpl<*>) -> Boolean): Boolean {
+    var result = false
+    forEachIndexed { position, item ->
+        if (block.invoke(position, item)) {
+            result = true
+            return@forEachIndexed
+        }
+    }
+    return result
+}
+
+fun <T : ItemImpl<*>> AnyAdapter.contains(clz: Class<T>, block: (position: Int, item: T) -> Boolean): Boolean {
+    var result = false
+    forEachIndexed { position, item ->
+        if (clz.isInstance(item) && block.invoke(position, item as T)) {
+            result = true
+            return@forEachIndexed
+        }
+    }
+    return result
+}
+
+private fun isIn(item: ItemImpl<*>, vararg clz: Class<out ItemImpl<*>>): Boolean {
+    return clz.all {
+        it.isInstance(item)
+    }
+}

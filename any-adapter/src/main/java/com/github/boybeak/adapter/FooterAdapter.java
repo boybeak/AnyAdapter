@@ -192,6 +192,14 @@ public class FooterAdapter<FooterItem extends ItemImpl<Footer>> extends AnyAdapt
         return footer.getState() == Footer.LOADING;
     }
 
+    public Footer getFooter() {
+        return footer;
+    }
+
+    public FooterItem getFooterItem() {
+        return footerItem;
+    }
+
     public void hideFooter() {
         hideFooter = true;
         notifyFooter();
