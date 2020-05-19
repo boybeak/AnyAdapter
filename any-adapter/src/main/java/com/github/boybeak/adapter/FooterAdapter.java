@@ -137,23 +137,23 @@ public class FooterAdapter<FooterItem extends ItemImpl<Footer>> extends AnyAdapt
     }
 
     public void notifyLoading() {
-        notifyFooter(Footer.LOADING, 0, "");
+        notifyFooter(Footer.LOADING, footer.getIcon(), "");
     }
 
     public void notifyLoading(Context context, @StringRes int textRes) {
-        notifyFooter(Footer.LOADING, 0, context.getString(textRes));
+        notifyFooter(Footer.LOADING, footer.getIcon(), context.getString(textRes));
     }
 
     public void notifySuccess(String msg) {
-        notifyFooter(Footer.SUCCESS, 0, msg);
+        notifyFooter(Footer.SUCCESS, footer.getIcon(), msg);
     }
 
     public void notifyNoOne(String msg) {
-        notifyFooter(Footer.NO_ONE, 0, msg);
+        notifyFooter(Footer.NO_ONE, footer.getIcon(), msg);
     }
 
     public void notifyNoMore(String msg) {
-        notifyFooter(Footer.NO_MORE, 0, msg);
+        notifyFooter(Footer.NO_MORE, footer.getIcon(), msg);
     }
 
     public void notifyEmpty(String msg) {
@@ -165,7 +165,7 @@ public class FooterAdapter<FooterItem extends ItemImpl<Footer>> extends AnyAdapt
     }
 
     public void notifyFailed(String msg) {
-        notifyFooter(Footer.FAILED, 0, msg);
+        notifyFooter(Footer.FAILED, footer.getIcon(), msg);
     }
 
     public void setFooterSummary(String summary) {

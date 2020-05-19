@@ -52,6 +52,7 @@ public class AutoFooterAdapter<FooterItem extends ItemImpl<Footer>> extends Foot
 
     public void setFooterMsgCallback(FooterMsgCallback<FooterItem> callback) {
         msgCallback = callback;
+        notifyFooter();
     }
 
     public interface FooterMsgCallback<FooterItem extends ItemImpl<Footer>> {
