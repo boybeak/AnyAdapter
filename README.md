@@ -14,7 +14,7 @@ buildscript {
 implementation 'com.github.boybeak:any-adapter:version'
 ```
 
-
+<img src=""/>
 
 ## Usage
 
