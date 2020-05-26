@@ -14,7 +14,7 @@ buildscript {
 implementation 'com.github.boybeak:any-adapter:version'
 ```
 
-<img src=""/>
+<img src="https://github.com/boybeak/AnyAdapter/blob/master/gif/list.png" width="540" height="960"/>
 
 ## Usage
 
