@@ -3,6 +3,10 @@ package com.github.boybeak.adapter.ext
 import com.github.boybeak.adapter.AnyAdapter
 import com.github.boybeak.adapter.ItemImpl
 
+fun <S, T : ItemImpl<S>> AnyAdapter.getSource(position: Int): S {
+    return getItemAs<T>(position).source()
+}
+
 fun AnyAdapter.first(): ItemImpl<*>? {
     if (isEmpty) {
         return null
@@ -128,6 +132,8 @@ fun AnyAdapter.countOnly(vararg clz: Class<out ItemImpl<*>>): Int {
     return count
 }
 
+operator fun <T : ItemImpl<*>> AnyAdapter.contains(item: T) = this.contains(item)
+
 fun AnyAdapter.contains(block: (position: Int, item: ItemImpl<*>) -> Boolean): Boolean {
     var result = false
     forEachIndexed { position, item ->
@@ -155,3 +161,26 @@ private fun isIn(item: ItemImpl<*>, vararg clz: Class<out ItemImpl<*>>): Boolean
         it.isInstance(item)
     }
 }
+
+fun <T : ItemImpl<*>> AnyAdapter.getAll(clz: Class<T>): List<T> {
+    val list = ArrayList<T>()
+    forEach {
+        if (clz.isInstance(it)) {
+            list.add(it as T)
+        }
+    }
+    return list
+}
+
+fun <S, T : ItemImpl<S>> AnyAdapter.getAllSource(clz: Class<T>): List<S> {
+    val sources = ArrayList<S>()
+    forEach {
+        if (clz.isInstance(it)) {
+            val item = it as T
+            sources.add(item.source())
+        }
+    }
+    return sources
+}
+
+operator fun AnyAdapter.get(position: Int): ItemImpl<*> = getItem(position)

@@ -15,6 +15,7 @@ import com.github.boybeak.adapter.event.OnClick
 import com.github.boybeak.adapter.event.OnItemClick
 import com.github.boybeak.adapter.event.OnItemLongClick
 import com.github.boybeak.adapter.ext.countIgnore
+import com.github.boybeak.adapter.ext.getAll
 import com.github.boybeak.adapter.ext.isEmptyIgnoreFooter
 import com.github.boybeak.adapter.footer.Footer
 import com.github.boybeak.easypermission.Callback
