@@ -9,9 +9,9 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("search")
-    suspend fun searchPhotos(@Query("query") query: String): Call<PhotoPage>
-    @GET("curated")
-    suspend fun curatedPhotos(): Call<PhotoPage>
+    suspend fun searchPhotos(@Query("query") query: String): PhotoPage
+    @GET("curated?per_page=48")
+    suspend fun curatedPhotos(@Query("page") page: Int = 1): PhotoPage
     @GET("photos/{id}")
-    suspend fun photoInfo(@Path("id") id: Long): Call<Photo>
+    suspend fun photoInfo(@Path("id") id: Long): Photo
 }
