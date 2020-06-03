@@ -8,13 +8,13 @@ import android.view.ViewParent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.*;
 
+import com.github.boybeak.adapter.event.AbsOnClick;
+import com.github.boybeak.adapter.event.AbsOnLongClick;
 import com.github.boybeak.adapter.event.OnClick;
 import com.github.boybeak.adapter.event.OnLongClick;
 import com.github.boybeak.adapter.selector.MultipleSelector;
 import com.github.boybeak.adapter.selector.SelectorArgs;
 import com.github.boybeak.adapter.selector.SingleSelector;
-
-import androidx.annotation.NonNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -78,6 +78,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
     public AbsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Class<? extends AbsHolder> clz = typeMap.get(viewType);
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
+        view.setId(R.id.any_adapter_holder_root);
         try {
             return clz.getDeclaredConstructor(View.class).newInstance(view);
         } catch (IllegalAccessException e) {
@@ -319,8 +320,16 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         clickMap.put(clz, click);
     }
 
+    public <T extends ItemImpl> void setOnClickFor(@NonNull AbsOnClick<T> absClick) {
+        setOnClickFor(absClick.getItemClass(), absClick);
+    }
+
     public <T extends ItemImpl> void setOnLongClickFor(@NonNull Class<T> clz, @NonNull OnLongClick<T> click) {
         longClickMap.put(clz, click);
+    }
+
+    public <T extends ItemImpl> void setOnLongClickFor(@NonNull AbsOnLongClick<T> absLongClick) {
+        setOnLongClickFor(absLongClick.getItemClass(), absLongClick);
     }
 
     private <T extends ItemImpl> boolean isSelectableFor(Class<T> clz) {
@@ -343,25 +352,23 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
     }
 
     public <T extends ItemImpl> void add(final int position, @NonNull final T item) {
-        Callback callback = new Callback() {
+        syncNotify(new Callback() {
             @Override
             public void doChange() {
                 handleAddOperation(item);
                 currentItems.add(position, item);
             }
-        };
-        syncNotify(callback);
+        });
     }
 
     public <T extends ItemImpl> void add(@NonNull final T item) {
-        Callback callback = new Callback() {
+        syncNotify(new Callback() {
             @Override
             public void doChange() {
                 handleAddOperation(item);
                 currentItems.add(item);
             }
-        };
-        syncNotify(callback);
+        });
     }
 
     public <S, T extends ItemImpl> void add(@NonNull S s, @NonNull IConverter<S, T> converter) {
@@ -373,18 +380,17 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
     }
 
     public <T extends ItemImpl> void replace(final int position, @NonNull final T item) {
-        Callback callback = new Callback() {
+        syncNotify(new Callback() {
             @Override
             public void doChange() {
                 handleAddOperation(item);
                 currentItems.set(position, item);
             }
-        };
-        syncNotify(callback);
+        });
     }
 
     public <T extends ItemImpl> void addAll(@NonNull final Collection<T> items) {
-        Callback callback = new Callback() {
+        syncNotify(new Callback() {
             @Override
             public void doChange() {
                 for (T t : items) {
@@ -392,12 +398,11 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
                 }
                 currentItems.addAll(items);
             }
-        };
-        syncNotify(callback);
+        });
     }
 
     public <T extends ItemImpl> void addAll(final int position, @NonNull final Collection<T> items) {
-        Callback callback = new Callback() {
+        syncNotify(new Callback() {
             @Override
             public void doChange() {
                 for (T t : items) {
@@ -405,8 +410,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
                 }
                 currentItems.addAll(position, items);
             }
-        };
-        syncNotify(callback);
+        });
     }
 
     private <S, T extends ItemImpl<S>> List<T> doConvert(@NonNull List<S> sources, @NonNull IEachConverter<S, T> converter) {
@@ -448,29 +452,27 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
     }
 
     public <T extends ItemImpl> void remove(final T item) {
-        Callback callback = new Callback() {
+        syncNotify(new Callback() {
             @Override
             public void doChange() {
                 handleRemoveOperation(item);
                 currentItems.remove(item);
             }
-        };
-        syncNotify(callback);
+        });
     }
 
     public void remove(final int position) {
-        Callback callback = new Callback() {
+        syncNotify(new Callback() {
             @Override
             public void doChange() {
                 handleRemoveOperation(getItem(position));
                 currentItems.remove(position);
             }
-        };
-        syncNotify(callback);
+        });
     }
 
     public <T extends ItemImpl> void removeAll(@NonNull final Collection<T> items) {
-        Callback callback = new Callback() {
+        syncNotify(new Callback() {
             @Override
             public void doChange() {
                 for (T t : items) {
@@ -478,8 +480,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
                 }
                 currentItems.removeAll(items);
             }
-        };
-        syncNotify(callback);
+        });
     }
 
     public void removeBy(@NonNull IFilter<ItemImpl> filter) {
@@ -528,7 +529,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
     }
 
     public void clear() {
-        Callback callback = new Callback() {
+        syncNotify(new Callback() {
             @Override
             public void doChange() {
                 for (SingleSelector ss : singleSelectorMap.values()) {
@@ -539,8 +540,7 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
                 }
                 currentItems.clear();
             }
-        };
-        syncNotify(callback);
+        });
     }
 
     public void filterRun(@NonNull IFilter filter, @NonNull IRun run) {

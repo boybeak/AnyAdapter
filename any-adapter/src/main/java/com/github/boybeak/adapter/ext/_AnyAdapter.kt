@@ -2,6 +2,10 @@ package com.github.boybeak.adapter.ext
 
 import com.github.boybeak.adapter.AnyAdapter
 import com.github.boybeak.adapter.ItemImpl
+import com.github.boybeak.adapter.event.AbsOnClick
+import com.github.boybeak.adapter.event.AbsOnLongClick
+import com.github.boybeak.adapter.event.OnClick
+import com.github.boybeak.adapter.event.OnLongClick
 
 fun <S, T : ItemImpl<S>> AnyAdapter.getSource(position: Int): S {
     return getItemAs<T>(position).source()
@@ -181,6 +185,19 @@ fun <S, T : ItemImpl<S>> AnyAdapter.getAllSource(clz: Class<T>): List<S> {
         }
     }
     return sources
+}
+
+fun <A : AnyAdapter> A.withOnClicks(vararg onClicks: AbsOnClick<out ItemImpl<*>>): A {
+    onClicks.forEach {
+        setOnClickFor(it)
+    }
+    return this
+}
+fun <A : AnyAdapter> A.withOnLongClicks(vararg onClicks: AbsOnLongClick<out ItemImpl<*>>): A {
+    onClicks.forEach {
+        setOnLongClickFor(it)
+    }
+    return this
 }
 
 operator fun AnyAdapter.get(position: Int): ItemImpl<*> = getItem(position)

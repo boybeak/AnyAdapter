@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.boybeak.adapter.AnyAdapter
 import com.github.boybeak.adapter.AutoFooterAdapter
+import com.github.boybeak.adapter.event.AbsOnClick
 import com.github.boybeak.adapter.event.OnItemClick
+import com.github.boybeak.adapter.ext.withOnClicks
+import com.github.boybeak.adapter.ext.withOnLongClicks
 import com.github.boybeak.adapter.footer.Footer
 import com.github.boybeak.pexels.adapter.item.FooterItem
 import com.github.boybeak.pexels.adapter.item.PhotoItem
@@ -20,6 +23,7 @@ import com.github.boybeak.pexels.vm.MainVM
 import com.github.boybeak.pexels.vm.SearchVM
 import com.github.boybeak.pexels.widget.OnScrollBottomListener
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +32,12 @@ class MainActivity : AppCompatActivity() {
         private val TAG = MainActivity::class.java.simpleName
     }
 
-    private val adapter = AutoFooterAdapter(FooterItem(Footer())).apply {
+    private val footer = object : Footer() {
+        override fun equals(other: Any?): Boolean {
+            return true
+        }
+    }
+    private val adapter = AutoFooterAdapter(FooterItem(footer)).apply {
         setOnClickFor(PhotoItem::class.java, object : OnItemClick<PhotoItem>(){
             override fun onClick(view: View, item: PhotoItem, position: Int, adapter: AnyAdapter) {
                 toast(item.source().photographer)
@@ -41,10 +50,10 @@ class MainActivity : AppCompatActivity() {
 
     private val onBottom = object : OnScrollBottomListener() {
         override fun onScrollBottom(recyclerView: RecyclerView, newState: Int) {
-            if (adapter.isLoading) {
+            /*if (adapter.isLoading) {
                 return
             }
-            adapter.notifyLoading()
+            adapter.notifyLoading()*/
             vm.nextPage {
                 adapter.addAll(it) { s, _ ->
                     PhotoItem(s)
@@ -70,13 +79,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        adapter.notifyLoading()
+//        adapter.notifyLoading()
         vm.getCuratedPhotos (
             {
                 adapter.addAll(it) { s, _ ->
                     PhotoItem(s)
                 }
-                mainRV.scrollToPosition(0)
+//                mainRV.scrollToPosition(0)
             },
             {
                 toast(it.message!!)

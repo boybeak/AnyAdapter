@@ -16,13 +16,16 @@ class FooterItem(s: Footer) : AbsItem<Footer>(s) {
 		return FooterHolder::class.java
 	}
 
+
+
 	override fun areContentsSame(other: ItemImpl<*>): Boolean {
-		return if (other is FooterItem) {
+		/*return if (other is FooterItem) {
 			val os = other.source()
 			source().state == os.state && source().message == os.message && source().summary == os.summary && source().icon == os.icon
 		} else {
 			false
-		}
+		}*/
+		return false
 	}
 
 }

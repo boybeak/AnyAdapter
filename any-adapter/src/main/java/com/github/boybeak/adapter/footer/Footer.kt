@@ -2,7 +2,7 @@ package com.github.boybeak.adapter.footer
 
 import androidx.annotation.IntDef
 
-class Footer {
+open class Footer {
 
     @State
     @get:State
