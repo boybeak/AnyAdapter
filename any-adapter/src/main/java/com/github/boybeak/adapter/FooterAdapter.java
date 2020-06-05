@@ -9,8 +9,6 @@ import com.github.boybeak.adapter.event.OnClick;
 import com.github.boybeak.adapter.event.OnLongClick;
 import com.github.boybeak.adapter.footer.Footer;
 
-import androidx.annotation.NonNull;
-
 public class FooterAdapter<FooterItem extends ItemImpl<Footer>> extends AnyAdapter {
 
     private Footer footer = null;

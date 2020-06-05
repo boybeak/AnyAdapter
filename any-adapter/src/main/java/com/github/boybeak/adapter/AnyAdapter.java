@@ -230,6 +230,17 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         return currentItems.get(position);
     }
 
+    public <T extends ItemImpl> void notifyItemChanged(T t) {
+        notifyItemChanged(t, null);
+    }
+
+    public <T extends ItemImpl> void notifyItemChanged(T t, @NonNull Object payloads) {
+        int index = indexOf(t);
+        if (index >= 0 && index <= getItemCount()) {
+            notifyItemChanged(index, payloads);
+        }
+    }
+
     public int indexOf(@NonNull ItemImpl item) {
         return currentItems.indexOf(item);
     }
