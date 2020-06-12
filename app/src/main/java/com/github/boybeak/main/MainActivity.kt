@@ -10,18 +10,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.github.boybeak.adapter.AnyAdapter
 import com.github.boybeak.adapter.AutoFooterAdapter
-import com.github.boybeak.adapter.FooterAdapter
 import com.github.boybeak.adapter.event.OnClick
 import com.github.boybeak.adapter.event.OnItemClick
 import com.github.boybeak.adapter.event.OnItemLongClick
-import com.github.boybeak.adapter.ext.countIgnore
-import com.github.boybeak.adapter.ext.getAll
-import com.github.boybeak.adapter.ext.isEmptyIgnoreFooter
+import com.github.boybeak.adapter.ext.sortWith
 import com.github.boybeak.adapter.footer.Footer
 import com.github.boybeak.easypermission.Callback
 import com.github.boybeak.easypermission.EasyPermission
-import com.github.boybeak.main.adapter.SongItem
+import com.github.boybeak.main.adapter.item.SongItem
 import com.github.boybeak.main.adapter.item.FooterItem
+import com.github.boybeak.main.adapter.item.StringItem
 import com.github.boybeak.main.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -116,6 +114,34 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+            R.id.displayNameA_Z -> {
+                adapter.sortWith(Comparator<SongItem>{ o1, o2 ->
+                    o1.source().title.compareTo(o2.source().title)
+                })
+                recyclerView.scrollToPosition(0)
+                true
+            }
+            R.id.displayNameZ_A -> {
+                adapter.sortWith(Comparator<SongItem>{ o1, o2 ->
+                    o2.source().title.compareTo(o1.source().title)
+                })
+                recyclerView.scrollToPosition(0)
+                true
+            }
+            R.id.dateIncrease -> {
+                adapter.sortWith(Comparator<SongItem>{ o1, o2 ->
+                    (o1.source().dateAdded - o2.source().dateAdded).toInt()
+                })
+                recyclerView.scrollToPosition(0)
+                true
+            }
+            R.id.dateDecrease -> {
+                adapter.sortWith(Comparator<SongItem>{ o1, o2 ->
+                    (o2.source().dateAdded - o1.source().dateAdded).toInt()
+                })
+                recyclerView.scrollToPosition(0)
+                true
+            }
             else -> {
                 false
             }
@@ -139,7 +165,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadSongs() {
         ScanTask { songs ->
-            adapter.addAll(songs) { s, position -> SongItem(s) }
+            adapter.addAll(songs) { s, position ->
+                SongItem(s)
+            }
+            recyclerView.scrollToPosition(0)
             adapter.setFooterClick(object : OnClick<FooterItem>{
                 override fun getClickableIds(): IntArray {
                     return intArrayOf(R.id.hideBtn)

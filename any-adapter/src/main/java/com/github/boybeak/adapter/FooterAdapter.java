@@ -93,6 +93,15 @@ public class FooterAdapter<FooterItem extends ItemImpl<Footer>> extends AnyAdapt
         }
     }
 
+    public int getItemViewTypeCountIgnoreFooter() {
+        return super.getItemViewTypeCount() - 1;
+    }
+
+    @Override
+    public boolean isDataSingleType() {
+        return getItemViewTypeCountIgnoreFooter() <= 1;
+    }
+
     @Override
     public ItemImpl getItem(int position) {
         if (position < getItemCountIgnoreFooter()) {

@@ -1,9 +1,10 @@
-package com.github.boybeak.main.adapter
+package com.github.boybeak.main.adapter.item
 
 import com.github.boybeak.adapter.AbsItem
 import com.github.boybeak.adapter.ItemImpl
 import com.github.boybeak.main.R
 import com.github.boybeak.main.Song
+import com.github.boybeak.main.adapter.holder.SongHolder
 
 class SongItem(s: Song) : AbsItem<Song>(s) {
     override fun layoutId(): Int {

@@ -1,7 +1,6 @@
 $dokka.format:html
 $dokka.linkExtension:html
 $dokka.location:com.github.boybeak.adapter.ext$contains(com.github.boybeak.adapter.AnyAdapter, com.github.boybeak.adapter.ext.contains.T)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/contains.html
-$dokka.location:com.github.boybeak.adapter.ext$contains(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.ext.contains.T)))com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/contains.html
 $dokka.location:com.github.boybeak.adapter.ext$contains(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.ext.contains.T)), kotlin.Function2((kotlin.Int, com.github.boybeak.adapter.ext.contains.T, kotlin.Boolean)))com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/contains.html
 $dokka.location:com.github.boybeak.adapter.ext$contains(com.github.boybeak.adapter.AnyAdapter, kotlin.Function2((kotlin.Int, com.github.boybeak.adapter.ItemImpl((kotlin.Any)), kotlin.Boolean)))com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/contains.html
 $dokka.location:com.github.boybeak.adapter.ext$countIgnore(com.github.boybeak.adapter.AnyAdapter, kotlin.Array((java.lang.Class((com.github.boybeak.adapter.ItemImpl((kotlin.Any)))))))com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/count-ignore.html
@@ -25,6 +24,7 @@ $dokka.location:com.github.boybeak.adapter.ext$lastAs(com.github.boybeak.adapter
 $dokka.location:com.github.boybeak.adapter.ext$lastFor(com.github.boybeak.adapter.AnyAdapter, java.lang.Class((com.github.boybeak.adapter.ext.lastFor.T)))com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/last-for.html
 $dokka.location:com.github.boybeak.adapter.ext$lastSource(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/last-source.html
 $dokka.location:com.github.boybeak.adapter.ext$lastSourceAs(com.github.boybeak.adapter.AnyAdapter)com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/last-source-as.html
+$dokka.location:com.github.boybeak.adapter.ext$sortWith(com.github.boybeak.adapter.AnyAdapter, java.util.Comparator((com.github.boybeak.adapter.ext.sortWith.T)))com.github.boybeak.adapter.ext/com.github.boybeak.adapter.-any-adapter/sort-with.html
 com.github.boybeak.adapter
 com.github.boybeak.adapter.event
 com.github.boybeak.adapter.ext

@@ -19,6 +19,8 @@ import com.github.boybeak.adapter.selector.SingleSelector;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -200,6 +202,14 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
         Class<AbsHolder> clz = item.holderClass();
         putType(layoutId, clz);
         return layoutId;
+    }
+
+    public int getItemViewTypeCount() {
+        return typeMap.size();
+    }
+
+    public boolean isDataSingleType() {
+        return getItemViewTypeCount() <= 1;
     }
 
     public void putType(int type, Class<? extends AbsHolder> clz) {
@@ -550,6 +560,46 @@ public class AnyAdapter extends RecyclerView.Adapter<AbsHolder> {
                     ms.reset();
                 }
                 currentItems.clear();
+            }
+        });
+    }
+
+    public void sortBy(final Comparator<ItemImpl> comparator) {
+        syncNotify(new Callback() {
+            @Override
+            public void doChange() {
+                Collections.sort(currentItems, comparator);
+            }
+        });
+    }
+
+    public <T extends ItemImpl> boolean contains(@NonNull Class<T> clz) {
+        for (int i = 0; i < getItemCount(); i++) {
+            if (clz.isInstance(getItem(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public <T extends ItemImpl> void sortBy(final Class<T> clz, final Comparator<T> comparator) {
+        if (!isDataSingleType()) {
+            throw new IllegalStateException("This adapter contains more than one data type that can not compare, typeMap=" + typeMap);
+        }
+        if (!this.contains(clz)) {
+            return;
+        }
+        List<T> ts = getItemsAs(clz);
+        Collections.sort(ts, comparator);
+        mergeFrom((List<ItemImpl>) ts);
+    }
+
+    private void mergeFrom(final List<ItemImpl> mergeList) {
+        syncNotify(new Callback() {
+            @Override
+            public void doChange() {
+                currentItems.clear();
+                currentItems.addAll(mergeList);
             }
         });
     }

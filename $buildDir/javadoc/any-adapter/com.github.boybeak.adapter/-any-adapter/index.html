@@ -97,7 +97,8 @@
 <h4><a href="contains.html">contains</a></h4>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">Any</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">contains</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AnyAdapter$contains(com.github.boybeak.adapter.AnyAdapter.contains.T)/t">t</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">Any</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">contains</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AnyAdapter$contains(com.github.boybeak.adapter.AnyAdapter.contains.T)/t">t</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code><br/>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">Any</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">contains</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AnyAdapter$contains(java.lang.Class((com.github.boybeak.adapter.AnyAdapter.contains.T)))/clz">clz</span><span class="symbol">:</span>&nbsp;<a href="https://whatever/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
 </tr>
 <tr>
 <td>
@@ -166,10 +167,24 @@
 </tr>
 <tr>
 <td>
+<h4><a href="get-item-view-type-count.html">getItemViewTypeCount</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getItemViewTypeCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
 <h4><a href="index-of.html">indexOf</a></h4>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">indexOf</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AnyAdapter$indexOf(com.github.boybeak.adapter.ItemImpl((kotlin.Any)))/item">item</span><span class="symbol">:</span>&nbsp;<a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">Any</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="is-data-single-type.html">isDataSingleType</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isDataSingleType</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
 </tr>
 <tr>
 <td>
@@ -313,6 +328,14 @@
 <td>
 <p>Only one selector can be assigned for @param clz, obtain SingleSelector will remove MultipleSelector</p>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">Any</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">singleSelectorFor</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AnyAdapter$singleSelectorFor(java.lang.Class((com.github.boybeak.adapter.AnyAdapter.singleSelectorFor.T)))/clz">clz</span><span class="symbol">:</span>&nbsp;<a href="https://whatever/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.github.boybeak.adapter.selector/-single-selector/index.html"><span class="identifier">SingleSelector</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="sort-by.html">sortBy</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">sortBy</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AnyAdapter$sortBy(java.util.Comparator((com.github.boybeak.adapter.ItemImpl((kotlin.Any)))))/comparator">comparator</span><span class="symbol">:</span>&nbsp;<a href="https://whatever/java/util/Comparator.html"><span class="identifier">Comparator</span></a><span class="symbol">&lt;</span><a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">Any</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><br/>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">Any</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">sortBy</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.AnyAdapter$sortBy(java.lang.Class((com.github.boybeak.adapter.AnyAdapter.sortBy.T)), java.util.Comparator((com.github.boybeak.adapter.AnyAdapter.sortBy.T)))/clz">clz</span><span class="symbol">:</span>&nbsp;<a href="https://whatever/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="com.github.boybeak.adapter.AnyAdapter$sortBy(java.lang.Class((com.github.boybeak.adapter.AnyAdapter.sortBy.T)), java.util.Comparator((com.github.boybeak.adapter.AnyAdapter.sortBy.T)))/comparator">comparator</span><span class="symbol">:</span>&nbsp;<a href="https://whatever/java/util/Comparator.html"><span class="identifier">Comparator</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 </tbody>
 </table>

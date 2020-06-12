@@ -6,6 +6,7 @@ import com.github.boybeak.adapter.event.AbsOnClick
 import com.github.boybeak.adapter.event.AbsOnLongClick
 import com.github.boybeak.adapter.event.OnClick
 import com.github.boybeak.adapter.event.OnLongClick
+import java.util.Comparator
 
 fun <S, T : ItemImpl<S>> AnyAdapter.getSource(position: Int): S {
     return getItemAs<T>(position).source()
@@ -73,15 +74,6 @@ fun <T : ItemImpl<*>> AnyAdapter.lastFor(clz: Class<T>): T? {
         }
     }
     return null
-}
-
-fun <T : ItemImpl<*>> AnyAdapter.contains(clz: Class<T>): Boolean {
-    for (i in 0 until itemCount) {
-        if (clz.isInstance(getItem(i))) {
-            return true
-        }
-    }
-    return false
 }
 
 fun AnyAdapter.isNotEmpty(): Boolean {
@@ -198,6 +190,16 @@ fun <A : AnyAdapter> A.withOnLongClicks(vararg onClicks: AbsOnLongClick<out Item
         setOnLongClickFor(it)
     }
     return this
+}
+
+inline fun <reified T : ItemImpl<*>> AnyAdapter.sortWith(comparator: Comparator<T>) {
+    sortBy(T::class.java, comparator)
+    /*if (!isDataSingleType) {
+        throw IllegalStateException("This adapter contains more than one data type that can not compare")
+    }
+    val list = getItemsAs(T::class.java)
+    list.sortWith(comparator)
+    mergeFrom(list as List<ItemImpl<Any>>?)*/
 }
 
 operator fun AnyAdapter.get(position: Int): ItemImpl<*> = getItem(position)

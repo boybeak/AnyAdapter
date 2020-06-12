@@ -7,4 +7,44 @@
         android:visible="false"
         app:showAsAction="always"
         />
+    <item
+        android:id="@+id/sort"
+        android:title="Sort by">
+        <menu>
+            <item android:id="@+id/sortByName"
+                android:title="Name">
+                <menu>
+                    <group android:id="@+id/displayName"
+                        android:checkableBehavior="single"
+                        >
+                        <item
+                            android:id="@+id/displayNameA_Z"
+                            android:title="A-Z"
+                            />
+                        <item
+                            android:id="@+id/displayNameZ_A"
+                            android:title="Z-A"
+                            />
+                    </group>
+                </menu>
+            </item>
+            <item android:id="@+id/sortByDate"
+                android:title="Date">
+                <menu>
+                    <group android:id="@+id/date"
+                        android:checkableBehavior="single"
+                        >
+                        <item
+                            android:id="@+id/dateIncrease"
+                            android:title="Increase"
+                            />
+                        <item
+                            android:id="@+id/dateDecrease"
+                            android:title="Decrease"
+                            />
+                    </group>
+                </menu>
+            </item>
+        </menu>
+    </item>
 </menu>
