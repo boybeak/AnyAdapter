@@ -17,6 +17,8 @@ import com.github.boybeak.adapter.ext.sortWith
 import com.github.boybeak.adapter.footer.Footer
 import com.github.boybeak.easypermission.Callback
 import com.github.boybeak.easypermission.EasyPermission
+import com.github.boybeak.easypermission.aspect.OnPermissionDenied
+import com.github.boybeak.easypermission.aspect.RequestPermissions
 import com.github.boybeak.main.adapter.item.SongItem
 import com.github.boybeak.main.adapter.item.FooterItem
 import com.github.boybeak.main.adapter.item.StringItem
@@ -79,24 +81,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.adapter = adapter
 
-        /*adapter.add(0, object : AnyAdapter.IConverter<Int, SongItem>{
-            override fun convert(s: Int): MutableList<SongItem> {
-
-            }
-        })*/
-
-        EasyPermission.ask(Manifest.permission.READ_EXTERNAL_STORAGE)
-            .go(this, object : Callback {
-                override fun onGranted(permissions: MutableList<String>) {
-                    loadSongs()
-                }
-
-                override fun onDenied(
-                    permission: String,
-                    shouldShowRequestPermissionRationale: Boolean
-                ) {
-                }
-            })
+        loadSongs()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -163,6 +148,10 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
+    @RequestPermissions(
+        permissions = [Manifest.permission.READ_EXTERNAL_STORAGE],
+        requestCode = 100
+    )
     private fun loadSongs() {
         ScanTask { songs ->
             adapter.addAll(songs) { s, position ->
@@ -184,6 +173,15 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         }.execute(this)
+    }
+
+    @OnPermissionDenied
+    fun onPermissionDenied(permission: String, requestCode: Int, neverAsk: Boolean) {
+        when(permission) {
+            Manifest.permission.READ_EXTERNAL_STORAGE -> {
+                Toast.makeText(this, "No permission granted", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 

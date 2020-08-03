@@ -174,6 +174,16 @@ After operations, call `end()`.
 
 
 
+### Sort
+
+```kotlin
+adapter.sortWith(Comparator<SongItem>{ o1, o2 ->
+    o1.source().title.compareTo(o2.source().title)
+})
+```
+
+
+
 
 
 ### OnClick and OnLongClick
