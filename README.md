@@ -266,7 +266,7 @@ You can use [AnyAdapterPlugin](https://github.com/boybeak/AnyAdapterPlugin) to g
 
 <img src="https://github.com/boybeak/AnyAdapter/blob/master/menu_create_item_and_holder.png" width="249" height="645"/>
 
-<img src="https://github.com/boybeak/AnyAdapter/blob/master/menu_create_binding.png" width="311" height="484"/>
-
 <img src="https://github.com/boybeak/AnyAdapter/blob/master/any_adapter_plugin.png" width="426" height="284"/>
+
+<img src="https://github.com/boybeak/AnyAdapter/blob/master/menu_create_binding.png" width="311" height="484"/>
 
