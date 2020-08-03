@@ -1,5 +1,7 @@
 # AnyAdapter [ ![Download](https://api.bintray.com/packages/boybeak/nulldreams/any-adapter/images/download.svg) ](https://bintray.com/boybeak/nulldreams/any-adapter/_latestVersion)
 
+[中文README](https://github.com/boybeak/AnyAdapter/blob/master/README-CN.md)
+
 ## Install
 
 ```groovy
@@ -261,3 +263,10 @@ private val adapter = AutoFooterAdapter(FooterItem(Footer()))
 # One more thing!!!
 
 You can use [AnyAdapterPlugin](https://github.com/boybeak/AnyAdapterPlugin) to generate `item` and `holder` pair, and add binding to holder class if you're using viewBinding.
+
+<img src="https://github.com/boybeak/AnyAdapter/blob/master/menu_create_item_and_holder.png" width="249" height="645"/>
+
+<img src="https://github.com/boybeak/AnyAdapter/blob/master/menu_create_binding.png" width="311" height="484"/>
+
+<img src="https://github.com/boybeak/AnyAdapter/blob/master/any_adapter_plugin.png" width="426" height="484"/>
+

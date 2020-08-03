@@ -262,3 +262,8 @@ private val adapter = AutoFooterAdapter(FooterItem(Footer()))
 
 你可以使用 [AnyAdapterPlugin](https://github.com/boybeak/AnyAdapterPlugin) 来产生 `item` `holder` 对, 如果你使用了viewBinding，还可以在holder类中，添加对应的binding对象.
 
+<img src="https://github.com/boybeak/AnyAdapter/blob/master/menu_create_item_and_holder.png" width="249" height="645"/>
+
+<img src="https://github.com/boybeak/AnyAdapter/blob/master/menu_create_binding.png" width="311" height="484"/>
+
+<img src="https://github.com/boybeak/AnyAdapter/blob/master/any_adapter_plugin.png" width="426" height="484"/>
