@@ -1,6 +1,6 @@
 # AnyAdapter [ ![Download](https://api.bintray.com/packages/boybeak/nulldreams/any-adapter/images/download.svg) ](https://bintray.com/boybeak/nulldreams/any-adapter/_latestVersion)
 
-## Install
+## 安装
 
 ```groovy
 buildscript {
@@ -16,7 +16,7 @@ implementation 'com.github.boybeak:any-adapter:version'
 
 <img src="https://github.com/boybeak/AnyAdapter/blob/master/gif/list.png" width="360" height="640"/>
 
-## Usage
+## 使用
 
 ```kotlin
 val adapter = new AnyAdapter()
@@ -24,7 +24,7 @@ val adapter = new AnyAdapter()
 recyclerView.adapter = adapter
 ```
 
-All your data model should be wrapped by `ItemImpl<T>`. The type `T` is your data type. AnyAdapter only accepts `ItemImpl`'s subclass as it's data item. Actually, you just need to make your data item class extends `AbsItem`.
+你的model类必须被 `ItemImpl<T>`所包裹. `T`就是你要展现的数据. AnyAdapter 只接受 `ItemImpl`的子类作为其中的Item, 实际上，继承 `AbsItem`会更方便.
 
 ```kotlin
 // A data example.
@@ -74,9 +74,9 @@ adapter.add(PostItem(post))
 // Or adapter.add(position, PostItem(post))
 ```
 
-This is a typical `add` operation. No need to do any **notifyDataXXXChanged** operations. The data will refresh automatically.
+这是一个非常典型的 `add` 操作. 再也不用执行 **notifyDataXXXChanged** 操作了. 数据刷新是自动完成的.
 
-Another **one-to-many** add function that can convert one data element to item list.
+另外一个 **one-to-many** 添加函数能够将一个单一数据转换成一组数据添加进来.
 
 ```kotlin
 adapter.add(post, object : IConverter<Post, TextItem> {
@@ -102,7 +102,7 @@ adapter.addAll(postItems)
 // Or adapter.add(position, postItems)
 ```
 
-Actually, there's another better function.
+实际上，你可以使用更为方便快捷的方式，如下:
 
 ```kotlin
 adapter.addAll(posts, object : AnyAdapter.IEachConverter<Post, PostItem> {
@@ -121,21 +121,21 @@ adapter.addAll(posts, object : AnyAdapter.IEachConverter<Post, PostItem> {
 
 ### Remove
 
-**single-remove** 
+**单个删除**
 
-Use  `remove(Int)` or `remove(Item)`.
+使用  `remove(Int)` 或者 `remove(Item)`.
 
-**multiple-remove**
+**多个删除**
 
-For removing item collection, use `removeAll(Collection<Item>)`;
+删除数据集合, 使用 `removeAll(Collection<Item>)`;
 
-For removing by conditions, use `removeBy(IFilter)`;
+条件删除, 使用 `removeBy(IFilter)`;
 
-For removing by item type and conditions, use `removeBy(Class<Item>, IFilter)`;
+类型条件删除, 使用 `removeBy(Class<Item>, IFilter)`;
 
-For removing by item type, use `removeAll(Class<Item>)`;
+类型删除, 使用 `removeAll(Class<Item>)`;
 
-For clearing all, use `clear`;
+删除所有, 使用 `clear()`;
 
 
 
@@ -147,21 +147,21 @@ For clearing all, use `clear`;
 
 ### FilterRun
 
-`filterRun(IFilter, IRun)` - execute `IRun` if accepted by `IFilter`;
+`filterRun(IFilter, IRun)` - 如果`IFilter`返回true, 则执行 `IRun`;
 
-`filterRun(Class<Item>, IFilter, IRun)` - execute `IRun` if item is an instance of `Class<Item>` and accepted by `IFilter`;
+`filterRun(Class<Item>, IFilter, IRun)` - 如果是 `Class<Item>` 类型并且 `IFilter`返回true, 执行 `IRun` ;
 
 
 
 ### Selector
 
-There are 2 build-in selectors, `SingleSelector` and `MultipleSelector`. 
+内置两个选择器, `SingleSelector` 和 `MultipleSelector`. 
 
-You can get selector instance by `singleSelectorFor(Class<Item>)` or `multipleSelectorFor(Class<Item>)`. This will make `SingleSelector` and `MultipleSelector` instance for the first time called. 
+你可以通过 `singleSelectorFor(Class<Item>)` 或者 `multipleSelectorFor(Class<Item>)`来获取对应的选择器. 当第一次调用 `SingleSelector` 或者 `MultipleSelector` 的时候，对应的实例将被创建. 
 
->  Before do select operation, make sure that your item class support select. Override **supportSelect** function and return true.
+>  在使用选择功能前, 请确保你的item class支持选择. 在你的item class中重写 **supportSelect** 方法并且返回true.
 
-Call `begin()` befor call `select` that make sure the selector is in select mode.
+在调用 `select`前，先调用 `begin()`  以确保选择器进去选择状态.
 
 ```kotlin
 val selector = adapter.singleSelectorFor(Post::class.java)
@@ -170,7 +170,7 @@ selector.select(0) // Select the 0 item
 selector.remove() // Remove the selected item
 ```
 
-After operations, call `end()`.
+执行相关操作后, 调用 `end()`结束选择状态.
 
 
 
@@ -208,7 +208,7 @@ adapter.setOnClickFor(PostItem::class.java, object : OnClick<PostItem> {
 })
 ```
 
-If you just want to set click event to item view, you can use `OnItemClick` directly. No need to override *getClickableIds*.
+如果你只想为整个item设置点击事件, 你可以直接使用 `OnItemClick` . 不用再重写 *getClickableIds*.
 
 
 
@@ -233,11 +233,11 @@ adapter.setOnLongClickFor(PostItem::class.java, object : OnClick<PostItem> {
 })
 ```
 
-If you just want to set click event to item view, you can use `OnItemLongClick` directly. No need to override *getLongClickableIds*.
+如果你只想为整个item设置长按事件, 你可以直接使用 `OnItemLongClick`. 无需再重写 *getLongClickableIds*.
 
-> Another alternative choice is `OnItemEvent` for both `OnItemClick` and `OnItemLongClick`.
+> 如果点击事件和长按事件都要设置，你可以使用 `OnItemEvent` ，既是 `OnItemClick` 又是 `OnItemLongClick`.
 
-Also, you can set events when you creating the adapter instance.
+另外一种方法，可以在创建adapter时候直接设置相关事件。
 
 ```kotlin
 private val adapter = AutoFooterAdapter(FooterItem(Footer()))
@@ -260,4 +260,5 @@ private val adapter = AutoFooterAdapter(FooterItem(Footer()))
 
 # One more thing!!!
 
-You can use [AnyAdapterPlugin](https://github.com/boybeak/AnyAdapterPlugin) to generate `item` and `holder` pair, and add binding to holder class if you're using viewBinding.
+你可以使用 [AnyAdapterPlugin](https://github.com/boybeak/AnyAdapterPlugin) 来产生 `item` `holder` 对, 如果你使用了viewBinding，还可以在holder类中，添加对应的binding对象.
+
