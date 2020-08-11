@@ -33,6 +33,10 @@ android {
 //        generateReleaseRFile?.get()?.enabled = false
 //        generateRFileProvider?.get()?.enabled = false
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
