@@ -5,7 +5,7 @@ import com.github.boybeak.adapter.ItemImpl;
 
 import androidx.annotation.NonNull;
 
-public interface Callback<T extends ItemImpl> {
+public interface Callback<T extends ItemImpl<?>> {
     void onBegin();
     void onEnd();
     void onReset();

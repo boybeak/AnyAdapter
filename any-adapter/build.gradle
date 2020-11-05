@@ -54,6 +54,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"*/
 
     testImplementation "junit:junit:$junit_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 }

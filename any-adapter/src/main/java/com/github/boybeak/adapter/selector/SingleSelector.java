@@ -3,7 +3,7 @@ package com.github.boybeak.adapter.selector;
 import com.github.boybeak.adapter.AnyAdapter;
 import com.github.boybeak.adapter.ItemImpl;
 
-public class SingleSelector<T extends ItemImpl> extends AbsSelector<T> {
+public class SingleSelector<T extends ItemImpl<?>> extends AbsSelector<T> {
 
     private static final String TAG = SingleSelector.class.getSimpleName();
 

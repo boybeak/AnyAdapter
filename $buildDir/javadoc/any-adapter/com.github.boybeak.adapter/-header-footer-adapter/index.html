@@ -1,0 +1,129 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>HeaderFooterAdapter - any-adapter</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">any-adapter</a>&nbsp;/&nbsp;<a href="../index.html">com.github.boybeak.adapter</a>&nbsp;/&nbsp;<a href="./index.html">HeaderFooterAdapter</a><br/>
+<br/>
+<h1>HeaderFooterAdapter</h1>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">HeaderFooterAdapter</span><span class="symbol">&lt;</span><span class="identifier">H</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">F</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><a href="../../com.github.boybeak.adapter.footer/-footer/index.html"><span class="identifier">Footer</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-footer-adapter/index.html"><span class="identifier">FooterAdapter</span></a><span class="symbol">&lt;</span><span class="identifier">F</span><span class="symbol">&gt;</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">HeaderFooterAdapter</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.HeaderFooterAdapter$<init>(com.github.boybeak.adapter.HeaderFooterAdapter.H, com.github.boybeak.adapter.HeaderFooterAdapter.F, com.github.boybeak.adapter.AnyAdapter.NotifyCallback)/headerItem">headerItem</span><span class="symbol">:</span>&nbsp;<span class="identifier">H</span><span class="symbol">, </span><span class="identifier" id="com.github.boybeak.adapter.HeaderFooterAdapter$<init>(com.github.boybeak.adapter.HeaderFooterAdapter.H, com.github.boybeak.adapter.HeaderFooterAdapter.F, com.github.boybeak.adapter.AnyAdapter.NotifyCallback)/item">item</span><span class="symbol">:</span>&nbsp;<span class="identifier">F</span><span class="symbol">, </span><span class="identifier" id="com.github.boybeak.adapter.HeaderFooterAdapter$<init>(com.github.boybeak.adapter.HeaderFooterAdapter.H, com.github.boybeak.adapter.HeaderFooterAdapter.F, com.github.boybeak.adapter.AnyAdapter.NotifyCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<span class="identifier">NotifyCallback</span><span class="symbol">)</span></code><br/>
+<code><span class="identifier">HeaderFooterAdapter</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.HeaderFooterAdapter$<init>(com.github.boybeak.adapter.HeaderFooterAdapter.H, com.github.boybeak.adapter.HeaderFooterAdapter.F)/headerItem">headerItem</span><span class="symbol">:</span>&nbsp;<span class="identifier">H</span><span class="symbol">, </span><span class="identifier" id="com.github.boybeak.adapter.HeaderFooterAdapter$<init>(com.github.boybeak.adapter.HeaderFooterAdapter.H, com.github.boybeak.adapter.HeaderFooterAdapter.F)/item">item</span><span class="symbol">:</span>&nbsp;<span class="identifier">F</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="get-header-item.html">getHeaderItem</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getHeaderItem</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">H</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-item.html">getItem</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getItem</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.HeaderFooterAdapter$getItem(kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-item-count.html">getItemCount</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getItemCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-item-view-type.html">getItemViewType</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getItemViewType</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.HeaderFooterAdapter$getItemViewType(kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-item-view-type-count-ignore-header-and-footer.html">getItemViewTypeCountIgnoreHeaderAndFooter</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getItemViewTypeCountIgnoreHeaderAndFooter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="hide-header.html">hideHeader</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hideHeader</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="is-data-single-type.html">isDataSingleType</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isDataSingleType</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="is-header-hidden.html">isHeaderHidden</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isHeaderHidden</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="is-items-empty.html">isItemsEmpty</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isItemsEmpty</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="notify-header.html">notifyHeader</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">notifyHeader</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-bind-view-holder.html">onBindViewHolder</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onBindViewHolder</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.HeaderFooterAdapter$onBindViewHolder(com.github.boybeak.adapter.AbsHolder((com.github.boybeak.adapter.ItemImpl((kotlin.Any)))), kotlin.Int)/holder">holder</span><span class="symbol">:</span>&nbsp;<a href="../-abs-holder/index.html"><span class="identifier">AbsHolder</span></a><span class="symbol">&lt;</span><a href="../-item-impl/index.html"><span class="identifier">ItemImpl</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.github.boybeak.adapter.HeaderFooterAdapter$onBindViewHolder(com.github.boybeak.adapter.AbsHolder((com.github.boybeak.adapter.ItemImpl((kotlin.Any)))), kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-header-click.html">setHeaderClick</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">setHeaderClick</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.HeaderFooterAdapter$setHeaderClick(com.github.boybeak.adapter.event.OnClick((com.github.boybeak.adapter.HeaderFooterAdapter.H)))/click">click</span><span class="symbol">:</span>&nbsp;<a href="../../com.github.boybeak.adapter.event/-on-click/index.html"><span class="identifier">OnClick</span></a><span class="symbol">&lt;</span><span class="identifier">H</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-header-long-click.html">setHeaderLongClick</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">setHeaderLongClick</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.HeaderFooterAdapter$setHeaderLongClick(com.github.boybeak.adapter.event.OnLongClick((com.github.boybeak.adapter.HeaderFooterAdapter.H)))/longClick">longClick</span><span class="symbol">:</span>&nbsp;<a href="../../com.github.boybeak.adapter.event/-on-long-click/index.html"><span class="identifier">OnLongClick</span></a><span class="symbol">&lt;</span><span class="identifier">H</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="show-header.html">showHeader</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">showHeader</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

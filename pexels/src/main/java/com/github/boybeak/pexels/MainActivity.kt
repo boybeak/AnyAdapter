@@ -10,11 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.boybeak.adapter.AnyAdapter
 import com.github.boybeak.adapter.AutoFooterAdapter
 import com.github.boybeak.adapter.event.AbsOnClick
+import com.github.boybeak.adapter.event.AbsOnItemClick
 import com.github.boybeak.adapter.event.OnItemClick
 import com.github.boybeak.adapter.ext.withOnClicks
 import com.github.boybeak.adapter.ext.withOnLongClicks
 import com.github.boybeak.adapter.footer.Footer
+import com.github.boybeak.pexels.adapter.OneAdapter
 import com.github.boybeak.pexels.adapter.item.FooterItem
+import com.github.boybeak.pexels.adapter.item.HeaderItem
 import com.github.boybeak.pexels.adapter.item.PhotoItem
 import com.github.boybeak.pexels.api.api
 import com.github.boybeak.pexels.ext.obtain
@@ -38,10 +41,29 @@ class MainActivity : AppCompatActivity() {
             return true
         }
     }
-    private val adapter = AutoFooterAdapter(FooterItem(footer)).apply {
+    /*private val adapter = AutoFooterAdapter(FooterItem(footer)).apply {
         setOnClickFor(PhotoItem::class.java, object : OnItemClick<PhotoItem>(){
             override fun onClick(view: View, item: PhotoItem, position: Int, adapter: AnyAdapter) {
                 toast(item.source().photographer)
+            }
+        })
+    }*/
+    private val adapter = OneAdapter().withOnClicks(
+        object : AbsOnItemClick<PhotoItem>(PhotoItem::class.java) {
+            override fun onItemClick(
+                view: View,
+                item: PhotoItem,
+                position: Int,
+                adapter: AnyAdapter
+            ) {
+                toast(item.source().photographer)
+                (adapter as OneAdapter).hideFooter()
+            }
+        }
+    ).apply {
+        setHeaderClick(object : OnItemClick<HeaderItem>(){
+            override fun onClick(view: View, item: HeaderItem, position: Int, adapter: AnyAdapter) {
+                showFooter()
             }
         })
     }
@@ -86,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 adapter.addAll(it) { s, _ ->
                     PhotoItem(s)
                 }
-//                mainRV.scrollToPosition(0)
+                mainRV.scrollToPosition(0)
             },
             {
                 toast(it.message!!)

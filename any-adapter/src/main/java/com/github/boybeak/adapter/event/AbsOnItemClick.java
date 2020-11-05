@@ -8,7 +8,7 @@ import com.github.boybeak.adapter.AnyAdapter;
 import com.github.boybeak.adapter.ItemImpl;
 import com.github.boybeak.adapter.R;
 
-public abstract class AbsOnItemClick<T extends ItemImpl> extends AbsOnClick<T> {
+public abstract class AbsOnItemClick<T extends ItemImpl<?>> extends AbsOnClick<T> {
 
     public AbsOnItemClick(Class<T> clz) {
         super(clz);

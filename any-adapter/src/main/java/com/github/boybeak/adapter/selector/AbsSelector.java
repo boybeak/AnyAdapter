@@ -6,7 +6,7 @@ import com.github.boybeak.adapter.ItemImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbsSelector<T extends ItemImpl> implements Selector<T> {
+public abstract class AbsSelector<T extends ItemImpl<?>> implements Selector<T> {
     private AnyAdapter adapter;
     private Class<T> itemClass;
 
@@ -80,7 +80,7 @@ public abstract class AbsSelector<T extends ItemImpl> implements Selector<T> {
         if (index < 0 || index >= adapter().getItemCount()) {
             return false;
         }
-        ItemImpl item = adapter().getItem(index);
+        ItemImpl<?> item = adapter().getItem(index);
         if (itemClz().isInstance(item)) {
             return select((T)item);
         }

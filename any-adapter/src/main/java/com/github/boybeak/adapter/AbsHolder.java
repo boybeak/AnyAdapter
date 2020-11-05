@@ -21,7 +21,7 @@ public abstract class AbsHolder<I extends ItemImpl> extends RecyclerView.ViewHol
     public void onAttached(@NonNull RecyclerView recyclerView) {
     }
 
-    public void onDetached(@NonNull RecyclerView recyclerView) {
+    public void onDetached() {
     }
 
     public void onSelectionBegin() {

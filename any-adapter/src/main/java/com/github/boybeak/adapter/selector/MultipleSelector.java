@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MultipleSelector<T extends ItemImpl> extends AbsSelector<T> {
+public class MultipleSelector<T extends ItemImpl<?>> extends AbsSelector<T> {
 
     private static final String TAG = MultipleSelector.class.getSimpleName();
 

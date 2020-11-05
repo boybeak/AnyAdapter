@@ -1,6 +1,7 @@
 package com.github.boybeak.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -36,9 +37,7 @@ public class FooterAdapter<FooterItem extends ItemImpl<Footer>> extends AnyAdapt
 
     @Override
     public void onBindViewHolder(@NonNull AbsHolder holder, final int position) {
-        if (position < getItemCountIgnoreFooter()) {
-            super.onBindViewHolder(holder, position);
-        } else {
+        if (!hideFooter && position == getItemCount() - 1) {
             holder.onBind(footerItem, position, this);
 
             if (footerClick != null) {
@@ -81,16 +80,26 @@ public class FooterAdapter<FooterItem extends ItemImpl<Footer>> extends AnyAdapt
             }
 
             holder.itemView.setVisibility(hideFooter ? View.GONE : View.VISIBLE);
+        } else {
+            super.onBindViewHolder(holder, position);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position < getItemCountIgnoreFooter()) {
-            return super.getItemViewType(position);
-        } else {
+        if (!hideFooter && position == getItemCount() - 1) {
             return footerItem.layoutId();
+        } else {
+            return super.getItemViewType(position);
         }
+        /*if (position < getItemCountIgnoreFooter()) {
+
+        } else if (!hideFooter) {
+
+        } else {
+
+        }*/
+//        throw new IllegalStateException("Unreachable position(" + position + ")");
     }
 
     public int getItemViewTypeCountIgnoreFooter() {
@@ -103,12 +112,20 @@ public class FooterAdapter<FooterItem extends ItemImpl<Footer>> extends AnyAdapt
     }
 
     @Override
-    public ItemImpl getItem(int position) {
-        if (position < getItemCountIgnoreFooter()) {
-            return super.getItem(position);
-        } else {
+    public ItemImpl<?> getItem(int position) {
+        Log.v(FooterAdapter.class.getSimpleName(), "itemCount=" + getItemCount());
+        if (!hideFooter && position == getItemCount() - 1) {
             return footerItem;
+        } else {
+            Log.v(FooterAdapter.class.getSimpleName(), "position=" + position);
+            return super.getItem(position);
         }
+        /*if (position < getItemCountIgnoreFooter()) {
+
+        } else if (!hideFooter) {
+
+        }*/
+//        throw new IllegalStateException("Unreachable position(" + position + ")");
     }
 
     public boolean isItemsEmpty() {
@@ -121,10 +138,17 @@ public class FooterAdapter<FooterItem extends ItemImpl<Footer>> extends AnyAdapt
 
     @Override
     public int getItemCount() {
-        return super.getItemCount() + 1;
+        int itemCount = super.getItemCount();
+        if (!hideFooter) {
+            itemCount += 1;
+        }
+        return itemCount;
     }
 
     public void notifyFooter(int state, int icon, String msg) {
+        if (hideFooter) {
+            return;
+        }
         footer.setState(state);
         footer.setIcon(icon);
         footer.setMessage(msg);
@@ -208,13 +232,23 @@ public class FooterAdapter<FooterItem extends ItemImpl<Footer>> extends AnyAdapt
     }
 
     public void hideFooter() {
+        if (hideFooter) {
+            return;
+        }
         hideFooter = true;
-        notifyFooter();
+        notifyItemRemoved(getItemCount() - 1);
     }
 
     public void showFooter() {
+        if (!hideFooter) {
+            return;
+        }
         hideFooter = false;
-        notifyFooter();
+        notifyItemInserted(getItemCount());
+    }
+
+    public boolean isFooterHidden() {
+        return hideFooter;
     }
 
 }
