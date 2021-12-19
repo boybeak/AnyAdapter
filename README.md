@@ -7,7 +7,7 @@
 ```groovy
 buildscript {
   repositories {
-        jcenter()
+        mavenCentral()
     }
 }
 ```
