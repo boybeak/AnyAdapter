@@ -1,4 +1,4 @@
-# AnyAdapter [ ![Download](https://api.bintray.com/packages/boybeak/nulldreams/any-adapter/images/download.svg) ](https://bintray.com/boybeak/nulldreams/any-adapter/_latestVersion)
+# AnyAdapter [ ![Download](https://img.shields.io/badge/any--adapter-1.4.1-blue) ](https://img.shields.io/badge/any--adapter-1.4.1-blue)
 
 [中文README](https://github.com/boybeak/AnyAdapter/blob/master/README-CN.md)
 
